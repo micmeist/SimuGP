@@ -33,12 +33,12 @@ public class Floor implements Process {
 
     private final ArrayDeque<Passenger> passangers;
     private final int floorNumber;
-    private final Elevator elevator;
+    private final Building building;
 
-    public Floor(int floorNumber, Elevator elevator) {
+    public Floor(int floorNumber, Building building) {
         this.floorNumber = floorNumber;
         this.passangers = new ArrayDeque();
-        this.elevator = elevator;
+        this.building = building;
     }
 
     public int getFloorNumber() {
@@ -58,12 +58,12 @@ public class Floor implements Process {
     //Notifier
     private void notifyPassengers() {
         if (!passangers.isEmpty()) {
-            passangers.getFirst().handleElevatorArrival(elevator);
+            passangers.getFirst().handleElevatorArrival(building.getElevator());
         }
     }
 
     private void callElevator() {
-        elevator.handleCall(this);
+        building.getElevator().handleCall(this);
     }
 
     //Planer

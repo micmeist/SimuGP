@@ -32,8 +32,9 @@ import simugp_aufzuege.Elevator;
  */
 public class ElevatorStartMoving extends ElevatorEvent{
 
-    public ElevatorStartMoving(Elevator elevator, double eventStartTime) {
-        super(elevator, eventStartTime);
+    public ElevatorStartMoving(Elevator elevator) {
+        //Elevator start moving immediately
+        super(elevator, 0.0);
     }
 
     @Override

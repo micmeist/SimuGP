@@ -21,46 +21,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package simugp_aufzuege;
+package controller;
+
+import org.apache.commons.math3.random.RandomData;
+import org.apache.commons.math3.random.RandomDataGenerator;
 
 /**
  *
  * @author micmeist
  */
-public class Passenger implements Process {
+public class EventTimeGenerator {
 
-    private final Floor startFloor;
-    private final Floor destinationFloor;
+    private static EventTimeGenerator instance;
+    private final RandomDataGenerator randomDataGenerator;
 
-    public Passenger(Floor startFloor, Floor destinationFloor) {
-        this.startFloor = startFloor;
-        this.destinationFloor = destinationFloor;
+    private EventTimeGenerator() {
+        randomDataGenerator = new RandomDataGenerator();
     }
 
-    public Floor getSTART_FLOOR() {
-        return startFloor;
+    public static EventTimeGenerator getInstance() {
+        if (instance == null) {
+            instance = new EventTimeGenerator();
+        }
+        return instance;
     }
 
-    public Floor getDESTINATION_FLOOR() {
-        return destinationFloor;
+    public double getExponential(double mean) {
+        return randomDataGenerator.nextExponential(mean);
     }
 
-    //Handler
-    public void handleElevatorArrival(Elevator elevator) {
-        planEnterElevatorEvent(elevator);
-    }
-
-    public void handleArrivalAtFloor(Floor currentFloor) {
-
-    }
-
-    //Planer
-    private void planEnterElevatorEvent(Elevator elevator) {
-
-    }
-
-    private void planLeaveElevatorEvent(Floor currentFloor) {
-
+    public double getInt(int lower, int upper) {
+        return randomDataGenerator.nextInt(lower, upper);
     }
 
 }

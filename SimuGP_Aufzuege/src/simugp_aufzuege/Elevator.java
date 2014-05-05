@@ -23,6 +23,8 @@
  */
 package simugp_aufzuege;
 
+import controller.FutureEventList;
+import events.ElevatorStartMoving;
 import java.util.Stack;
 
 /**
@@ -79,7 +81,7 @@ public class Elevator implements Process {
     }
 
     private void planStartMoving(Floor floor) {
-
+        FutureEventList.getInstance().addElevatorStartMovingEvent(new ElevatorStartMoving(this));
     }
 
     //Notifier

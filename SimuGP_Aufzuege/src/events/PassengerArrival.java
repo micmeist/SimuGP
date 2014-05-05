@@ -21,30 +21,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package events;
 
+import controller.EventTimeGenerator;
 import simugp_aufzuege.Floor;
+import simugp_aufzuege.GlobalVariables;
 import simugp_aufzuege.Passenger;
 
 /**
  *
  * @author micmeist
  */
-public class PassengerArrival extends PassengerEvent{
-    
-    private final Floor floor;
+public class PassengerArrival extends PassengerEvent {
 
-    public PassengerArrival(Floor floor, Floor startFloor, Floor destinationFloor, double eventStartTime) {
-        super(new Passenger(startFloor, destinationFloor), eventStartTime);
-        this.floor = floor;
+    public PassengerArrival(Floor startFloor, Floor destinationFloor) {
+        super(new Passenger(startFloor, destinationFloor), EventTimeGenerator.getInstance().getExponential(GlobalVariables.PASSENGER_ARRIVAL_EVENT_TIME_MEAN));
     }
-    
+
     @Override
     public void execute() {
-        floor.handlePassengerArrival(getPassenger());
+        getPassenger().getSTART_FLOOR().handlePassengerArrival(getPassenger());
     }
-    
-    
-    
+
 }

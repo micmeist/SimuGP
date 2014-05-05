@@ -23,44 +23,36 @@
  */
 package simugp_aufzuege;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author micmeist
  */
-public class Passenger implements Process {
+public class Building {
 
-    private final Floor startFloor;
-    private final Floor destinationFloor;
+    private final Elevator elevator;
+    private final List<Floor> floors;
 
-    public Passenger(Floor startFloor, Floor destinationFloor) {
-        this.startFloor = startFloor;
-        this.destinationFloor = destinationFloor;
+    public Building(int numberOfFloors, int elevatorStartFloor) {
+        floors = new ArrayList();
+        createFloors(numberOfFloors);
+        elevator = new Elevator(10, 5, floors.get(elevatorStartFloor), 4);
     }
 
-    public Floor getSTART_FLOOR() {
-        return startFloor;
+    private void createFloors(int numberOfFloors) {
+        for (int i = 0; i < numberOfFloors; i++) {
+            floors.add(new Floor(i, this));
+        }
     }
 
-    public Floor getDESTINATION_FLOOR() {
-        return destinationFloor;
+    public Floor getFloor(int index) {
+        return floors.get(index);
     }
 
-    //Handler
-    public void handleElevatorArrival(Elevator elevator) {
-        planEnterElevatorEvent(elevator);
-    }
-
-    public void handleArrivalAtFloor(Floor currentFloor) {
-
-    }
-
-    //Planer
-    private void planEnterElevatorEvent(Elevator elevator) {
-
-    }
-
-    private void planLeaveElevatorEvent(Floor currentFloor) {
-
+    public Elevator getElevator() {
+        return elevator;
     }
 
 }

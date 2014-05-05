@@ -21,46 +21,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package simugp_aufzuege;
+
+package events;
 
 /**
  *
  * @author micmeist
  */
-public class Passenger implements Process {
-
-    private final Floor startFloor;
-    private final Floor destinationFloor;
-
-    public Passenger(Floor startFloor, Floor destinationFloor) {
-        this.startFloor = startFloor;
-        this.destinationFloor = destinationFloor;
-    }
-
-    public Floor getSTART_FLOOR() {
-        return startFloor;
-    }
-
-    public Floor getDESTINATION_FLOOR() {
-        return destinationFloor;
-    }
-
-    //Handler
-    public void handleElevatorArrival(Elevator elevator) {
-        planEnterElevatorEvent(elevator);
-    }
-
-    public void handleArrivalAtFloor(Floor currentFloor) {
-
-    }
-
-    //Planer
-    private void planEnterElevatorEvent(Elevator elevator) {
-
-    }
-
-    private void planLeaveElevatorEvent(Floor currentFloor) {
-
-    }
-
+public class PassengerEntered {
+    
 }

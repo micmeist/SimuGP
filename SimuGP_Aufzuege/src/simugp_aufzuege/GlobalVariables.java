@@ -30,6 +30,9 @@ package simugp_aufzuege;
  */
 public class GlobalVariables {
     
+    //Hight of a single Floor in meters
     public static final double FLOOR_HIGHT = 250;
+    //Mean of passenger arrival time in seconds
+    public static final double PASSENGER_ARRIVAL_EVENT_TIME_MEAN = 120;
     
 }

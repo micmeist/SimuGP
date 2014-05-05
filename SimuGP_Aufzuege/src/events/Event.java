@@ -30,10 +30,18 @@ package events;
  */
 public abstract class Event {
     
-    private final double eventStartTime;
+    private double eventTime;
 
     public Event(double eventTime) {
-        this.eventStartTime = eventTime;
+        this.eventTime = eventTime;
+    }
+
+    public double getEventTime() {
+        return eventTime;
+    }
+
+    public void setEventTime(double eventTime) {
+        this.eventTime = eventTime;
     }
     
     public abstract void execute();
