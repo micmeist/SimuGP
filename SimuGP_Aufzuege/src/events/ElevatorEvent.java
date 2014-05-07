@@ -24,7 +24,7 @@
 
 package events;
 
-import simugp_aufzuege.Elevator;
+import process.Elevator;
 
 /**
  *
@@ -34,8 +34,8 @@ public abstract class ElevatorEvent extends Event{
     
     private final Elevator elevator;
 
-    public ElevatorEvent(Elevator elevator, double eventStartTime) {
-        super(eventStartTime);
+    public ElevatorEvent(Elevator elevator, double eventTime) {
+        super(eventTime);
         this.elevator = elevator;
     }
 

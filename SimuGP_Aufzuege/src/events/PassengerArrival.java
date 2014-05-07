@@ -23,10 +23,10 @@
  */
 package events;
 
-import controller.EventTimeGenerator;
-import simugp_aufzuege.Floor;
-import simugp_aufzuege.GlobalVariables;
-import simugp_aufzuege.Passenger;
+import helper.RandomGenerator;
+import process.Floor;
+import controller.GlobalVariables;
+import process.Passenger;
 
 /**
  *
@@ -35,7 +35,7 @@ import simugp_aufzuege.Passenger;
 public class PassengerArrival extends PassengerEvent {
 
     public PassengerArrival(Floor startFloor, Floor destinationFloor) {
-        super(new Passenger(startFloor, destinationFloor), EventTimeGenerator.getInstance().getExponential(GlobalVariables.PASSENGER_ARRIVAL_EVENT_TIME_MEAN));
+        super(new Passenger(startFloor, destinationFloor), RandomGenerator.getInstance().getExponential(GlobalVariables.PASSENGER_ARRIVAL_EVENT_TIME_MEAN));
     }
 
     @Override

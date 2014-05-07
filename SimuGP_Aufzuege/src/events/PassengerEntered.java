@@ -24,10 +24,27 @@
 
 package events;
 
+import controller.GlobalVariables;
+import helper.RandomGenerator;
+import process.Elevator;
+import process.Passenger;
+
 /**
  *
  * @author micmeist
  */
-public class PassengerEntered {
+public class PassengerEntered extends PassengerEvent{
+    
+    private final Elevator elevator;
+
+    public PassengerEntered(Passenger passenger, Elevator elevator) {
+        super(passenger, RandomGenerator.getInstance().getExponential(GlobalVariables.PASSENGER_ENTER_AND_LEAVE_EVENT_TIME_MEAN));
+        this.elevator = elevator;
+    }
+
+    @Override
+    public void execute() {
+        elevator.handlePassengerEntered(getPassenger());
+    }
     
 }

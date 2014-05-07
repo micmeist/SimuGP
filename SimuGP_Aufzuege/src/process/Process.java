@@ -21,38 +21,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package simugp_aufzuege;
 
-import java.util.ArrayList;
-import java.util.List;
+package process;
 
 /**
  *
  * @author micmeist
  */
-public class Building {
-
-    private final Elevator elevator;
-    private final List<Floor> floors;
-
-    public Building(int numberOfFloors, int elevatorStartFloor) {
-        floors = new ArrayList();
-        createFloors(numberOfFloors);
-        elevator = new Elevator(10, 5, floors.get(elevatorStartFloor), 4);
-    }
-
-    private void createFloors(int numberOfFloors) {
-        for (int i = 0; i < numberOfFloors; i++) {
-            floors.add(new Floor(i, this));
-        }
-    }
-
-    public Floor getFloor(int index) {
-        return floors.get(index);
-    }
-
-    public Elevator getElevator() {
-        return elevator;
-    }
-
+public interface Process {
+    
+    
+    
 }

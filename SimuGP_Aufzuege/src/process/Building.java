@@ -21,18 +21,47 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+package process;
 
-package simugp_aufzuege;
+import helper.RandomGenerator;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author micmeist
  */
-public class GlobalVariables {
-    
-    //Hight of a single Floor in meters
-    public static final double FLOOR_HIGHT = 250;
-    //Mean of passenger arrival time in seconds
-    public static final double PASSENGER_ARRIVAL_EVENT_TIME_MEAN = 120;
-    
+public class Building {
+
+    private final Elevator elevator;
+    private final List<Floor> floors;
+
+    public Building(int numberOfFloors, int elevatorStartFloor) {
+        floors = new ArrayList();
+        createFloors(numberOfFloors);
+        elevator = new Elevator(10, 5, floors.get(elevatorStartFloor), 4);
+    }
+
+    private void createFloors(int numberOfFloors) {
+        for (int i = 0; i < numberOfFloors; i++) {
+            floors.add(new Floor(i, this));
+        }
+    }
+
+    public Floor getFloor(int index) {
+        return floors.get(index);
+    }
+
+    public Floor getRandomFloor(Floor floor) {
+        Floor result;
+        do {
+            result = floors.get(RandomGenerator.getInstance().getInt(0, floors.size()-1));
+        } while (floor.equals(result));
+        return result;
+    }
+
+    public Elevator getElevator() {
+        return elevator;
+    }
+
 }

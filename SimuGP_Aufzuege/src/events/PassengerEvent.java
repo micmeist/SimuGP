@@ -24,7 +24,7 @@
 
 package events;
 
-import simugp_aufzuege.Passenger;
+import process.Passenger;
 
 /**
  *
@@ -34,8 +34,8 @@ public abstract class PassengerEvent extends Event{
     
     private final Passenger passenger;
 
-    public PassengerEvent(Passenger passenger, double eventStartTime) {
-        super(eventStartTime);
+    public PassengerEvent(Passenger passenger, double eventTime) {
+        super(eventTime);
         this.passenger = passenger;
     }
 

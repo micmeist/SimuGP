@@ -24,8 +24,8 @@
 
 package events;
 
-import simugp_aufzuege.Elevator;
-import simugp_aufzuege.Floor;
+import process.Elevator;
+import process.Floor;
 
 /**
  *

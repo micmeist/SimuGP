@@ -21,27 +21,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package controller;
+package helper;
 
-import org.apache.commons.math3.random.RandomData;
 import org.apache.commons.math3.random.RandomDataGenerator;
 
 /**
  *
  * @author micmeist
  */
-public class EventTimeGenerator {
+public class RandomGenerator {
 
-    private static EventTimeGenerator instance;
+    private static RandomGenerator instance;
     private final RandomDataGenerator randomDataGenerator;
 
-    private EventTimeGenerator() {
+    private RandomGenerator() {
         randomDataGenerator = new RandomDataGenerator();
     }
 
-    public static EventTimeGenerator getInstance() {
+    public static RandomGenerator getInstance() {
         if (instance == null) {
-            instance = new EventTimeGenerator();
+            instance = new RandomGenerator();
         }
         return instance;
     }
@@ -50,7 +49,7 @@ public class EventTimeGenerator {
         return randomDataGenerator.nextExponential(mean);
     }
 
-    public double getInt(int lower, int upper) {
+    public int getInt(int lower, int upper) {
         return randomDataGenerator.nextInt(lower, upper);
     }
 

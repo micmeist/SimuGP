@@ -21,8 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package simugp_aufzuege;
+package process;
 
+import controller.FutureEventList;
+import events.PassengerArrival;
 import java.util.ArrayDeque;
 
 /**
@@ -44,10 +46,19 @@ public class Floor implements Process {
     public int getFloorNumber() {
         return floorNumber;
     }
+    
+    public int getCurrentNumberOfPassengers(){
+        return passangers.size();
+    }
+    
+    public void removePassenger(Passenger passenger){
+        passangers.remove(passenger);
+    }
 
     //Handler
     public void handlePassengerArrival(Passenger passenger) {
         passangers.add(passenger);
+        planPassengerArrival();
         callElevator();
     }
 
@@ -68,7 +79,7 @@ public class Floor implements Process {
 
     //Planer
     private void planPassengerArrival() {
-
+        FutureEventList.getInstance().addPassengerEvent(new PassengerArrival(this, building.getRandomFloor(this)));
     }
 
 }

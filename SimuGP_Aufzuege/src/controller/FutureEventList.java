@@ -23,6 +23,7 @@
  */
 package controller;
 
+import events.ElevatorArrival;
 import events.ElevatorStartMoving;
 import events.Event;
 import events.PassengerArrival;
@@ -56,24 +57,27 @@ public class FutureEventList {
     }
 
     private void addEvent(Event eventToAdd) {
+        logger.entering(this.getClass().getName(), "addEvent");
         int index = 0;
         if (eventList.isEmpty()) {
             eventList.add(eventToAdd);
-            logger.info("Fist Event added");
+            logger.log(Level.INFO, "{0} Event added at first position", eventToAdd.getClass().getSimpleName());
         } else {
             for (Event event : eventList) {
-                if (eventToAdd.getEventTime() < event.getEventTime()) {
-                    eventList.add(index, eventToAdd);
-                    logger.log(Level.INFO, "Event added at position {0}", index);
+                if (eventToAdd.getEventTime() > event.getEventTime()) {
+                    index++;
+                } else {
                     break;
                 }
-                index++;
             }
+            eventList.add(index, eventToAdd);
+            logger.log(Level.INFO, "{0} Event added at position {1}", new Object[]{eventToAdd.getClass().getSimpleName(), index});
         }
 
     }
 
     public void addPassengerEvent(PassengerEvent passengerEvent) {
+        logger.entering(this.getClass().getName(), "addPassengerEvent");
         if (passengerEvent.getClass().getName().equals(PassengerArrival.class.getName())) {
             addPassengerArrivalEvent((PassengerArrival) passengerEvent);
         } else {
@@ -82,15 +86,18 @@ public class FutureEventList {
     }
 
     private void addPassengerArrivalEvent(PassengerArrival event) {
+        logger.entering(this.getClass().getName(), "addPassengerArrivalEvent");
         addEvent(event);
     }
 
     private void addPassengerLeavedOrEnteredEvent(PassengerEvent passengerEvent) {
+        logger.entering(this.getClass().getName(), "addPassengerLeavedOrEnteredEvent");
         ElevatorStartMoving elevatorStartMovingEvent = null;
         for (Event event : eventList) {
             if (ElevatorStartMoving.class.getName().equals(event.getClass().getName())) {
                 elevatorStartMovingEvent = (ElevatorStartMoving) event;
                 eventList.remove(event);
+                break;
             }
         }
         addEvent(passengerEvent);
@@ -100,21 +107,27 @@ public class FutureEventList {
     }
 
     public void addElevatorStartMovingEvent(ElevatorStartMoving elevatorStartMovingEvent) {
+        logger.entering(this.getClass().getName(), "addElevatorStartMovingEvent");
         Integer index = null;
         for (Event event : eventList) {
-            //elevatorStartMovingEvent is starting right after the PassengerLeaved or PassengerEntered event
+            //elevatorStartMovingEvent is starting right after the last PassengerLeaved, PassengerEntered or ElevatorArrival event
             if (PassengerLeaved.class.getName().equals(event.getClass().getName())
-                    || PassengerEntered.class.getName().equals(event.getClass().getName())) {
+                    || PassengerEntered.class.getName().equals(event.getClass().getName())
+                    || ElevatorArrival.class.getName().equals(event.getClass().getName())) {
                 index = eventList.indexOf(event);
                 elevatorStartMovingEvent.setEventTime(event.getEventTime());
-                break;
             }
         }
         if (index == null) {
             addEvent(elevatorStartMovingEvent);
         } else {
-            eventList.add(index, elevatorStartMovingEvent);
+            eventList.add(index + 1, elevatorStartMovingEvent);
         }
+    }
+
+    public void addElevatorArrivalEvent(ElevatorArrival elevatorArrival) {
+        logger.entering(this.getClass().getName(), "addElevatorArrivalEvent");
+        addEvent(elevatorArrival);
     }
 
     public Event peekNextEvent() {

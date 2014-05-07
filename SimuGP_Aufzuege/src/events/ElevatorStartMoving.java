@@ -24,22 +24,26 @@
 
 package events;
 
-import simugp_aufzuege.Elevator;
+import process.Elevator;
+import process.Floor;
 
 /**
  *
  * @author micmeist
  */
 public class ElevatorStartMoving extends ElevatorEvent{
+    
+    public final Floor floorToMoveTo;
 
-    public ElevatorStartMoving(Elevator elevator) {
+    public ElevatorStartMoving(Elevator elevator, Floor floorToMoveTo) {
         //Elevator start moving immediately
         super(elevator, 0.0);
+        this.floorToMoveTo = floorToMoveTo;
     }
 
     @Override
     public void execute() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        getElevator().handleStartMoving(floorToMoveTo);
     }
     
 }

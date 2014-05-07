@@ -24,6 +24,8 @@
 
 package events;
 
+import controller.GlobalVariables;
+
 /**
  *
  * @author micmeist
@@ -33,7 +35,7 @@ public abstract class Event {
     private double eventTime;
 
     public Event(double eventTime) {
-        this.eventTime = eventTime;
+        this.eventTime = eventTime + GlobalVariables.simulationTime;
     }
 
     public double getEventTime() {

@@ -21,7 +21,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package simugp_aufzuege;
+package process;
+
+import controller.FutureEventList;
+import events.PassengerEntered;
+import events.PassengerLeaved;
 
 /**
  *
@@ -50,17 +54,19 @@ public class Passenger implements Process {
         planEnterElevatorEvent(elevator);
     }
 
-    public void handleArrivalAtFloor(Floor currentFloor) {
-
+    public void handleArrivalAtFloor(Floor floor, Elevator elevator) {
+        if(destinationFloor.equals(floor)){
+            planLeaveElevatorEvent(elevator);
+        }
     }
-
+    
     //Planer
     private void planEnterElevatorEvent(Elevator elevator) {
-
+        FutureEventList.getInstance().addPassengerEvent(new PassengerEntered(this, elevator));
     }
 
-    private void planLeaveElevatorEvent(Floor currentFloor) {
-
+    private void planLeaveElevatorEvent(Elevator elevator) {
+        FutureEventList.getInstance().addPassengerEvent(new PassengerLeaved(this, elevator));
     }
 
 }
