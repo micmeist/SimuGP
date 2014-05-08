@@ -36,14 +36,14 @@ import java.util.logging.Logger;
  * @author micmeist
  */
 public class Elevator implements Process {
-    
+
     private static final Logger logger = Logger.getLogger(Elevator.class.getName());
 
     private final int CAPACITY;
     //Speed in meter/seconds
     private final int SPEED;
     private final double TIME_TO_MOVE_DOOR;
-    private final ArrayDeque<Passenger> passengers;
+    private final ArrayDeque<Passenger> passengers = new ArrayDeque();
 
     private Floor currentFloor;
     //Null if elevator is not moving
@@ -57,7 +57,6 @@ public class Elevator implements Process {
         this.CAPACITY = capacity;
         this.SPEED = speed;
         this.TIME_TO_MOVE_DOOR = TIME_TO_MOVE_DOOR;
-        this.passengers = new ArrayDeque();
         this.currentFloor = currentFloor;
     }
 
@@ -88,15 +87,7 @@ public class Elevator implements Process {
     }
 
     public void handleCall(Floor floor) {
-        if (destination != null) {
-            if (destination.getFloorNumber() != floor.getFloorNumber()) {
-                logger.log(Level.INFO, "Elevator called to floor {0} while moving", floor.getFloorNumber());
-                planStartMoving(floor);
-            }
-        } else {
-            logger.log(Level.INFO, "Elevator on floor {0} called to floor {1}", new Object[]{currentFloor.getFloorNumber() ,floor.getFloorNumber()});
-            planStartMoving(floor);
-        }
+        planStartMoving(floor);
     }
 
     public void handlePassengerLeaved(Passenger passenger) {
@@ -113,11 +104,11 @@ public class Elevator implements Process {
         //More passengers should come when capacity is not reached
         if (passengers.size() < CAPACITY) {
             notifyArrivalFloor();
-        }else{
+        } else {
             logger.info("Elevator capacity reached");
             numberOfSituationsCapacityReached++;
         }
-        handleCall(passenger.getDESTINATION_FLOOR());
+        planStartMoving(passenger.getDESTINATION_FLOOR());
 
     }
 
@@ -133,10 +124,11 @@ public class Elevator implements Process {
 
     //Notifier
     private void notifyArrivalPassenger() {
+        //Notify passengers in elevator. If Elevator is empty notify floor
         if (passengers.isEmpty()) {
             logger.log(Level.INFO, "No passengers left in elevator, passengers on floor {0} can start entering elevator.", currentFloor.getFloorNumber());
             notifyArrivalFloor();
-        }else{
+        } else {
             logger.log(Level.INFO, "{0} passenger(s) in elevator now. Continue leaving elevator", passengers.size());
             passengers.getLast().handleArrivalAtFloor(currentFloor, this);
         }

@@ -41,6 +41,10 @@ public class ElevatorStartMoving extends ElevatorEvent{
         this.floorToMoveTo = floorToMoveTo;
     }
 
+    public Floor getFloorToMoveTo() {
+        return floorToMoveTo;
+    }
+    
     @Override
     public void execute() {
         getElevator().handleStartMoving(floorToMoveTo);

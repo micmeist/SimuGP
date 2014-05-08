@@ -108,27 +108,31 @@ public class FutureEventList {
 
     public void addElevatorStartMovingEvent(ElevatorStartMoving elevatorStartMovingEvent) {
         logger.entering(this.getClass().getName(), "addElevatorStartMovingEvent");
-        boolean containsElevatorStartMovingEvent = false;
+        boolean add = true;
         int index = 0;
         for (Event event : eventList) {
             if (ElevatorStartMoving.class.getName().equals(event.getClass().getName())) {
-                containsElevatorStartMovingEvent = true;
-                break;
+                ElevatorStartMoving currentEvent = (ElevatorStartMoving) event;
+                if (elevatorStartMovingEvent.getFloorToMoveTo().getFloorNumber() == currentEvent.getFloorToMoveTo().getFloorNumber()) {
+                    add = false;
+                    break;
+                }
             }
         }
-        if (!containsElevatorStartMovingEvent) {
+        if (add) {
             for (Event event : eventList) {
                 //elevatorStartMovingEvent is starting right after the last PassengerLeaved, PassengerEntered or ElevatorArrival event
                 if (PassengerLeaved.class.getName().equals(event.getClass().getName())
                         || PassengerEntered.class.getName().equals(event.getClass().getName())
-                        || ElevatorArrival.class.getName().equals(event.getClass().getName())) {
+                        || ElevatorArrival.class.getName().equals(event.getClass().getName())
+                        || ElevatorStartMoving.class.getName().equals(event.getClass().getName())) {
                     elevatorStartMovingEvent.setEventTime(event.getEventTime());
                     index = eventList.indexOf(event) + 1;
                 }
             }
             eventList.add(index, elevatorStartMovingEvent);
-        }else{
-            logger.warning("ElevatorStartMoving event not added! Event of this Class allready exsisting in FutureEventList.");
+        } else {
+            logger.warning("ElevatorStartMoving event not added! Event of this Class and for this floor allready exsisting in FutureEventList.");
         }
 
     }
