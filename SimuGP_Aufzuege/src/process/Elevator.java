@@ -48,6 +48,8 @@ public class Elevator implements Process {
     private Floor currentFloor;
     //Null if elevator is not moving
     private Floor destination = null;
+    private Floor callingFloor = null;
+    private ElevatorState currentState;
 
     //Statistics
     private int numberOfPassengersTransported = 0;
@@ -58,6 +60,7 @@ public class Elevator implements Process {
         this.SPEED = speed;
         this.TIME_TO_MOVE_DOOR = TIME_TO_MOVE_DOOR;
         this.currentFloor = currentFloor;
+        this.currentState = new StateWaitingEmpty(this);
     }
 
     public int getNumberOfPassengersTransported() {
@@ -72,22 +75,44 @@ public class Elevator implements Process {
         return numberOfSituationsCapacityReached;
     }
 
+    public Floor getDestination() {
+        return destination;
+    }
+
+    public Floor getCurrentFloor() {
+        return currentFloor;
+    }
+
+    public void setCallingFloor(Floor callingFloor) {
+        this.callingFloor = callingFloor;
+    }
+
+    public void setState(ElevatorState currentState) {
+        this.currentState = currentState;
+    }
+    
     //Handler
     public void handleArrival(Floor floor) {
         logger.log(Level.INFO, "Elevator arrived at floor {0}", floor.getFloorNumber());
+        currentState = new StateWaitingEmpty(this);
         currentFloor = floor;
         destination = null;
         notifyArrivalPassenger();
+        if(callingFloor != null){
+            planStartMoving(callingFloor);
+            callingFloor = null;
+        }
     }
 
     public void handleStartMoving(Floor floor) {
         logger.log(Level.INFO, "Elevator start moving form floor {0} to floor {1}", new Object[]{currentFloor.getFloorNumber(), floor.getFloorNumber()});
+        currentState = new StateMoving(this);
         destination = floor;
         planElevatorArrival(floor);
     }
 
     public void handleCall(Floor floor) {
-        planStartMoving(floor);
+        currentState.handleCall(floor);
     }
 
     public void handlePassengerLeaved(Passenger passenger) {
@@ -102,7 +127,7 @@ public class Elevator implements Process {
         passengers.add(passenger);
         logger.log(Level.INFO, "Passenger entered elevator. {0} passenger(s) in elevator now", passengers.size());
         //More passengers should come when capacity is not reached
-        if (passengers.size() < CAPACITY) {
+        if (passengers.size() < CAPACITY ) {
             notifyArrivalFloor();
         } else {
             logger.info("Elevator capacity reached");
@@ -118,8 +143,8 @@ public class Elevator implements Process {
         FutureEventList.getInstance().addElevatorArrivalEvent(new ElevatorArrival(this, secondsToArrival, floor));
     }
 
-    private void planStartMoving(Floor floorToMoveTo) {
-        FutureEventList.getInstance().addElevatorStartMovingEvent(new ElevatorStartMoving(this, floorToMoveTo));
+    void planStartMoving(Floor floorToMoveTo) {
+        FutureEventList.getInstance().addElevatorStartMovingEvent(new ElevatorStartMoving(this, floorToMoveTo), true);
     }
 
     //Notifier
@@ -157,5 +182,4 @@ public class Elevator implements Process {
 
         return seconds;
     }
-
 }

@@ -21,22 +21,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package controller;
+
+package process;
 
 /**
  *
  * @author micmeist
  */
-public class GlobalVariables {
+public abstract class ElevatorState {
+    
+    protected Elevator elevator;
 
-    //Hight of a single Floor in meters
-    public static final double FLOOR_HIGHT = 250;
-    //Mean of passenger arrival time in seconds
-    public static final double PASSENGER_ARRIVAL_EVENT_TIME_MEAN = 20;
-    //Mean of time passengers need to enter and leave elevator in seconds
-    public static final double PASSENGER_ENTER_AND_LEAVE_EVENT_TIME_MEAN = 10;
+    public ElevatorState(Elevator elevator) {
+        this.elevator = elevator;
+    }
+    
+    public abstract void handleCall(Floor floor);
 
-    //Simulation time in seconds
-    public static double simulationTime = 0;
-
+    
 }

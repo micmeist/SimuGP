@@ -21,22 +21,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package controller;
+
+package process;
 
 /**
  *
  * @author micmeist
  */
-public class GlobalVariables {
+public class StateMoving extends ElevatorState{
 
-    //Hight of a single Floor in meters
-    public static final double FLOOR_HIGHT = 250;
-    //Mean of passenger arrival time in seconds
-    public static final double PASSENGER_ARRIVAL_EVENT_TIME_MEAN = 20;
-    //Mean of time passengers need to enter and leave elevator in seconds
-    public static final double PASSENGER_ENTER_AND_LEAVE_EVENT_TIME_MEAN = 10;
+    public StateMoving(Elevator elevator) {
+        super(elevator);
+    }
 
-    //Simulation time in seconds
-    public static double simulationTime = 0;
+    @Override
+    public void handleCall(Floor floor) {
+        //If same floor like destination do nothing else set calling floor
+        if(elevator.getDestination().getFloorNumber() != floor.getFloorNumber()){
+            elevator.setCallingFloor(floor);
+        }
+    }
 
+    
 }

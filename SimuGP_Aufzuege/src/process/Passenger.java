@@ -62,10 +62,12 @@ public class Passenger implements Process {
     
     //Planer
     private void planEnterElevatorEvent(Elevator elevator) {
+        elevator.setState(new StateWaiting(elevator));
         FutureEventList.getInstance().addPassengerEvent(new PassengerEntered(this, elevator));
     }
 
     private void planLeaveElevatorEvent(Elevator elevator) {
+        elevator.setState(new StateWaiting(elevator));
         FutureEventList.getInstance().addPassengerEvent(new PassengerLeaved(this, elevator));
     }
 
