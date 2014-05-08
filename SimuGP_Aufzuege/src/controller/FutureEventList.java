@@ -108,21 +108,29 @@ public class FutureEventList {
 
     public void addElevatorStartMovingEvent(ElevatorStartMoving elevatorStartMovingEvent) {
         logger.entering(this.getClass().getName(), "addElevatorStartMovingEvent");
-        Integer index = null;
+        boolean containsElevatorStartMovingEvent = false;
+        int index = 0;
         for (Event event : eventList) {
-            //elevatorStartMovingEvent is starting right after the last PassengerLeaved, PassengerEntered or ElevatorArrival event
-            if (PassengerLeaved.class.getName().equals(event.getClass().getName())
-                    || PassengerEntered.class.getName().equals(event.getClass().getName())
-                    || ElevatorArrival.class.getName().equals(event.getClass().getName())) {
-                index = eventList.indexOf(event);
-                elevatorStartMovingEvent.setEventTime(event.getEventTime());
+            if (ElevatorStartMoving.class.getName().equals(event.getClass().getName())) {
+                containsElevatorStartMovingEvent = true;
+                break;
             }
         }
-        if (index == null) {
-            addEvent(elevatorStartMovingEvent);
-        } else {
-            eventList.add(index + 1, elevatorStartMovingEvent);
+        if (!containsElevatorStartMovingEvent) {
+            for (Event event : eventList) {
+                //elevatorStartMovingEvent is starting right after the last PassengerLeaved, PassengerEntered or ElevatorArrival event
+                if (PassengerLeaved.class.getName().equals(event.getClass().getName())
+                        || PassengerEntered.class.getName().equals(event.getClass().getName())
+                        || ElevatorArrival.class.getName().equals(event.getClass().getName())) {
+                    elevatorStartMovingEvent.setEventTime(event.getEventTime());
+                    index = eventList.indexOf(event) + 1;
+                }
+            }
+            eventList.add(index, elevatorStartMovingEvent);
+        }else{
+            logger.warning("ElevatorStartMoving event not added! Event of this Class allready exsisting in FutureEventList.");
         }
+
     }
 
     public void addElevatorArrivalEvent(ElevatorArrival elevatorArrival) {
