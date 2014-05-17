@@ -21,65 +21,38 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package process;
 
-import controller.FutureEventList;
-import events.PassengerArrival;
-import java.util.ArrayDeque;
+package process;
 
 /**
  *
  * @author micmeist
  */
-public class Floor implements Process {
-
-    private final ArrayDeque<Passenger> passangers;
-    private final int floorNumber;
-    private final Building building;
-
+public class Floor extends AbstractFloor{
+    
+    private int passangersOnFloor = 0;
+    
     public Floor(int floorNumber, Building building) {
-        this.floorNumber = floorNumber;
-        this.passangers = new ArrayDeque();
-        this.building = building;
+        super(floorNumber, building);
     }
 
-    public int getFloorNumber() {
-        return floorNumber;
-    }
-    
-    public int getCurrentNumberOfPassengers(){
-        return passangers.size();
-    }
-    
-    public void removePassenger(Passenger passenger){
-        passangers.remove(passenger);
+    @Override
+    public boolean isGroundFloor() {
+        return false;
     }
 
-    //Handler
-    public void handlePassengerArrival(Passenger passenger) {
-        passangers.add(passenger);
-        planPassengerArrival();
-        callElevator();
+    @Override
+    public boolean hasPassengersOn() {
+       return passangersOnFloor > 0;
     }
 
-    public void handleElevatorArrival() {
-        notifyPassengers();
-    }
+    @Override
+    public void addPassengerOnFloor() {
+        passangersOnFloor++;
+    } 
 
-    //Notifier
-    private void notifyPassengers() {
-        if (!passangers.isEmpty()) {
-            passangers.getFirst().handleElevatorArrival(building.getElevator());
-        }
+    @Override
+    public void reducePassengerOnFloor() {
+        passangersOnFloor--;
     }
-
-    private void callElevator() {
-        building.getElevator().handleCall(this);
-    }
-
-    //Planer
-    private void planPassengerArrival() {
-        FutureEventList.getInstance().addPassengerEvent(new PassengerArrival(this, building.getRandomFloor(this)));
-    }
-
 }

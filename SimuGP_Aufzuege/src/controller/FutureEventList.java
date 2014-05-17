@@ -98,7 +98,7 @@ public class FutureEventList {
     private void addEventBevoreStartMovingEvent(Event eventToAdd) {
         ElevatorStartMoving elevatorStartMovingEvent = null;
         for (Event event : eventList) {
-            if (ElevatorStartMoving.class.getName().equals(event.getClass().getName())) {
+            if (event instanceof ElevatorStartMoving) {
                 elevatorStartMovingEvent = (ElevatorStartMoving) event;
                 eventList.remove(event);
                 break;
@@ -106,11 +106,11 @@ public class FutureEventList {
         }
         addEvent(eventToAdd);
         if (elevatorStartMovingEvent != null) {
-            addElevatorStartMovingEvent(elevatorStartMovingEvent, false);
+            addElevatorStartMovingEvent(elevatorStartMovingEvent);
         }
     }
 
-    public void addElevatorStartMovingEvent(ElevatorStartMoving elevatorStartMovingEvent, boolean afterExsisting) {
+    public void addElevatorStartMovingEvent(ElevatorStartMoving elevatorStartMovingEvent) {
         logger.entering(this.getClass().getName(), "addElevatorStartMovingEvent");
         boolean add = true;
         int index = 0;
@@ -126,15 +126,15 @@ public class FutureEventList {
                 //elevatorStartMovingEvent is starting right after the last PassengerLeaved, PassengerEntered or ElevatorArrival event
                 if (event instanceof PassengerLeaved
                         || event instanceof PassengerEntered
-                        || event instanceof ElevatorArrival
-                        || (event instanceof ElevatorStartMoving && afterExsisting)) {
+                        || event instanceof ElevatorArrival) {
                     elevatorStartMovingEvent.setEventTime(event.getEventTime());
                     index = eventList.indexOf(event) + 1;
                 }
             }
             eventList.add(index, elevatorStartMovingEvent);
+            logger.log(Level.INFO, "ElevatorStartMoving Event added at position {0}", index);
         } else {
-            logger.warning("ElevatorStartMoving event not added! Event of this Class and for this floor allready exsisting in FutureEventList.");
+            logger.warning("ElevatorStartMoving event not added! Event of this Class allready exsisting in FutureEventList.");
         }
 
     }

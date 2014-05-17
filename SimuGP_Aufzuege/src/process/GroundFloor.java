@@ -28,19 +28,30 @@ package process;
  *
  * @author micmeist
  */
-public class StateMoving extends ElevatorState{
+public class GroundFloor extends AbstractFloor{
 
-    public StateMoving(Elevator elevator) {
-        super(elevator);
+    public GroundFloor( Building building) {
+        super(0, building);
     }
 
     @Override
-    public void handleCall(AbstractFloor floor) {
-        //If same floor like destination do nothing else set calling floor
-        if(elevator.getDestination().getFloorNumber() != floor.getFloorNumber()){
-            elevator.setCallingFloor(floor);
-        }
+    public boolean isGroundFloor() {
+        return true;
     }
 
-    
+    @Override
+    public boolean hasPassengersOn() {
+        //return true because passengers coming into the building arrvie here
+        return true;
+    }
+
+    @Override
+    public void addPassengerOnFloor() {
+        //Do nothing
+    }    
+
+    @Override
+    public void reducePassengerOnFloor() {
+        //Do nothing
+    }
 }

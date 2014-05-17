@@ -33,19 +33,19 @@ import events.PassengerLeaved;
  */
 public class Passenger implements Process {
 
-    private final Floor startFloor;
-    private final Floor destinationFloor;
+    private final AbstractFloor startFloor;
+    private final AbstractFloor destinationFloor;
 
-    public Passenger(Floor startFloor, Floor destinationFloor) {
+    public Passenger(AbstractFloor startFloor, AbstractFloor destinationFloor) {
         this.startFloor = startFloor;
         this.destinationFloor = destinationFloor;
     }
 
-    public Floor getSTART_FLOOR() {
+    public AbstractFloor getSTART_FLOOR() {
         return startFloor;
     }
 
-    public Floor getDESTINATION_FLOOR() {
+    public AbstractFloor getDESTINATION_FLOOR() {
         return destinationFloor;
     }
 
@@ -54,7 +54,7 @@ public class Passenger implements Process {
         planEnterElevatorEvent(elevator);
     }
 
-    public void handleArrivalAtFloor(Floor floor, Elevator elevator) {
+    public void handleArrivalAtFloor(AbstractFloor floor, Elevator elevator) {
         if(destinationFloor.equals(floor)){
             planLeaveElevatorEvent(elevator);
         }

@@ -24,7 +24,7 @@
 package events;
 
 import helper.RandomGenerator;
-import process.Floor;
+import process.AbstractFloor;
 import controller.GlobalVariables;
 import process.Passenger;
 
@@ -34,7 +34,7 @@ import process.Passenger;
  */
 public class PassengerArrival extends PassengerEvent {
 
-    public PassengerArrival(Floor startFloor, Floor destinationFloor) {
+    public PassengerArrival(AbstractFloor startFloor, AbstractFloor destinationFloor) {
         super(new Passenger(startFloor, destinationFloor), RandomGenerator.getInstance().getExponential(GlobalVariables.PASSENGER_ARRIVAL_EVENT_TIME_MEAN));
     }
 

@@ -45,17 +45,17 @@ public class Elevator implements Process {
     private final double TIME_TO_MOVE_DOOR;
     private final ArrayDeque<Passenger> passengers = new ArrayDeque();
 
-    private Floor currentFloor;
+    private AbstractFloor currentFloor;
     //Null if elevator is not moving
-    private Floor destination = null;
-    private Floor callingFloor = null;
+    private AbstractFloor destination = null;
+    private AbstractFloor callingFloor = null;
     private ElevatorState currentState;
 
     //Statistics
     private int numberOfPassengersTransported = 0;
     private int numberOfSituationsCapacityReached = 0;
 
-    public Elevator(int capacity, int speed, Floor currentFloor, double TIME_TO_MOVE_DOOR) {
+    public Elevator(int capacity, int speed, AbstractFloor currentFloor, double TIME_TO_MOVE_DOOR) {
         this.CAPACITY = capacity;
         this.SPEED = speed;
         this.TIME_TO_MOVE_DOOR = TIME_TO_MOVE_DOOR;
@@ -75,15 +75,15 @@ public class Elevator implements Process {
         return numberOfSituationsCapacityReached;
     }
 
-    public Floor getDestination() {
+    public AbstractFloor getDestination() {
         return destination;
     }
 
-    public Floor getCurrentFloor() {
+    public AbstractFloor getCurrentFloor() {
         return currentFloor;
     }
 
-    public void setCallingFloor(Floor callingFloor) {
+    public void setCallingFloor(AbstractFloor callingFloor) {
         this.callingFloor = callingFloor;
     }
 
@@ -92,9 +92,8 @@ public class Elevator implements Process {
     }
     
     //Handler
-    public void handleArrival(Floor floor) {
+    public void handleArrival(AbstractFloor floor) {
         logger.log(Level.INFO, "Elevator arrived at floor {0}", floor.getFloorNumber());
-        currentState = new StateWaitingEmpty(this);
         currentFloor = floor;
         destination = null;
         notifyArrivalPassenger();
@@ -104,19 +103,20 @@ public class Elevator implements Process {
         }
     }
 
-    public void handleStartMoving(Floor floor) {
+    public void handleStartMoving(AbstractFloor floor) {
         logger.log(Level.INFO, "Elevator start moving form floor {0} to floor {1}", new Object[]{currentFloor.getFloorNumber(), floor.getFloorNumber()});
         currentState = new StateMoving(this);
         destination = floor;
         planElevatorArrival(floor);
     }
 
-    public void handleCall(Floor floor) {
+    public void handleCall(AbstractFloor floor) {
         currentState.handleCall(floor);
     }
 
     public void handlePassengerLeaved(Passenger passenger) {
         passengers.remove(passenger);
+        passenger.getDESTINATION_FLOOR().addPassengerOnFloor();
         logger.log(Level.INFO, "Passenger leaved elevator. {0} passenger(s) in elevator now", passengers.size());
         numberOfPassengersTransported++;
         notifyArrivalPassenger();
@@ -124,6 +124,7 @@ public class Elevator implements Process {
 
     public void handlePassengerEntered(Passenger passenger) {
         passenger.getSTART_FLOOR().removePassenger(passenger);
+        passenger.getSTART_FLOOR().reducePassengerOnFloor();
         passengers.add(passenger);
         logger.log(Level.INFO, "Passenger entered elevator. {0} passenger(s) in elevator now", passengers.size());
         //More passengers should come when capacity is not reached
@@ -138,13 +139,13 @@ public class Elevator implements Process {
     }
 
     //Planer
-    private void planElevatorArrival(Floor floor) {
+    private void planElevatorArrival(AbstractFloor floor) {
         double secondsToArrival = calcSecondsToArrival(currentFloor.getFloorNumber(), floor.getFloorNumber());
         FutureEventList.getInstance().addElevatorArrivalEvent(new ElevatorArrival(this, secondsToArrival, floor));
     }
 
-    void planStartMoving(Floor floorToMoveTo) {
-        FutureEventList.getInstance().addElevatorStartMovingEvent(new ElevatorStartMoving(this, floorToMoveTo), true);
+    void planStartMoving(AbstractFloor floorToMoveTo) {
+        FutureEventList.getInstance().addElevatorStartMovingEvent(new ElevatorStartMoving(this, floorToMoveTo));
     }
 
     //Notifier

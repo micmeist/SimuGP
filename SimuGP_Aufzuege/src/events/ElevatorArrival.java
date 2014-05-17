@@ -25,7 +25,7 @@
 package events;
 
 import process.Elevator;
-import process.Floor;
+import process.AbstractFloor;
 
 /**
  *
@@ -33,9 +33,9 @@ import process.Floor;
  */
 public class ElevatorArrival extends ElevatorEvent{
     
-    private Floor floor;
+    private AbstractFloor floor;
 
-    public ElevatorArrival(Elevator elevator, double eventTime, Floor floor) {
+    public ElevatorArrival(Elevator elevator, double eventTime, AbstractFloor floor) {
         super(elevator, eventTime);
         this.floor = floor;
     }

@@ -36,7 +36,7 @@ public abstract class ElevatorState {
         this.elevator = elevator;
     }
     
-    public abstract void handleCall(Floor floor);
+    public abstract void handleCall(AbstractFloor floor);
 
     
 }

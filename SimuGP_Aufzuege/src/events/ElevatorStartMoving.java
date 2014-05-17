@@ -25,7 +25,7 @@
 package events;
 
 import process.Elevator;
-import process.Floor;
+import process.AbstractFloor;
 
 /**
  *
@@ -33,15 +33,15 @@ import process.Floor;
  */
 public class ElevatorStartMoving extends ElevatorEvent{
     
-    public final Floor floorToMoveTo;
+    public final AbstractFloor floorToMoveTo;
 
-    public ElevatorStartMoving(Elevator elevator, Floor floorToMoveTo) {
+    public ElevatorStartMoving(Elevator elevator, AbstractFloor floorToMoveTo) {
         //Elevator start moving immediately
         super(elevator, 0.0);
         this.floorToMoveTo = floorToMoveTo;
     }
 
-    public Floor getFloorToMoveTo() {
+    public AbstractFloor getFloorToMoveTo() {
         return floorToMoveTo;
     }
     

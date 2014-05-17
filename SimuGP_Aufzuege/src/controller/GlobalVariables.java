@@ -32,9 +32,9 @@ public class GlobalVariables {
     //Hight of a single Floor in meters
     public static final double FLOOR_HIGHT = 250;
     //Mean of passenger arrival time in seconds
-    public static final double PASSENGER_ARRIVAL_EVENT_TIME_MEAN = 20;
-    //Mean of time passengers need to enter and leave elevator in seconds
-    public static final double PASSENGER_ENTER_AND_LEAVE_EVENT_TIME_MEAN = 10;
+    public static final double PASSENGER_ARRIVAL_EVENT_TIME_MEAN = 30;
+    //Mean of time passengers need to enter or leave elevator in seconds
+    public static final double PASSENGER_ENTER_AND_LEAVE_EVENT_TIME_MEAN = 2;
 
     //Simulation time in seconds
     public static double simulationTime = 0;

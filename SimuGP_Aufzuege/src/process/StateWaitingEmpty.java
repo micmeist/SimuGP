@@ -35,7 +35,7 @@ public class StateWaitingEmpty extends ElevatorState{
     }
 
     @Override
-    public void handleCall(Floor floor) {
+    public void handleCall(AbstractFloor floor) {
         elevator.planStartMoving(floor);
     }
 
