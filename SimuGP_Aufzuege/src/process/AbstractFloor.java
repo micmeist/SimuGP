@@ -50,7 +50,7 @@ public abstract class AbstractFloor implements Process {
         return floorNumber;
     }
     
-    public int getCurrentNumberOfPassengers(){
+    public int getCurrentNumberOfPassengersInQueue(){
         return passangersInQueue.size();
     }
     

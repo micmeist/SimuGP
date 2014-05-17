@@ -61,7 +61,7 @@ public class FutureEventList {
         int index = 0;
         if (eventList.isEmpty()) {
             eventList.add(eventToAdd);
-            logger.log(Level.INFO, "{0} Event added at first position", eventToAdd.getClass().getSimpleName());
+            logger.log(Level.FINEST, "{0} Event added at first position", eventToAdd.getClass().getSimpleName());
         } else {
             for (Event event : eventList) {
                 if (eventToAdd.getEventTime() > event.getEventTime()) {
@@ -71,7 +71,7 @@ public class FutureEventList {
                 }
             }
             eventList.add(index, eventToAdd);
-            logger.log(Level.INFO, "{0} Event added at position {1}", new Object[]{eventToAdd.getClass().getSimpleName(), index});
+            logger.log(Level.FINEST, "{0} Event added at position {1}", new Object[]{eventToAdd.getClass().getSimpleName(), index});
         }
 
     }
@@ -132,9 +132,9 @@ public class FutureEventList {
                 }
             }
             eventList.add(index, elevatorStartMovingEvent);
-            logger.log(Level.INFO, "ElevatorStartMoving Event added at position {0}", index);
+            logger.log(Level.FINEST, "ElevatorStartMoving Event added at position {0}", index);
         } else {
-            logger.warning("ElevatorStartMoving event not added! Event of this Class allready exsisting in FutureEventList.");
+            logger.finest("ElevatorStartMoving event not added! Event of this Class allready exsisting in FutureEventList.");
         }
 
     }
@@ -148,27 +148,7 @@ public class FutureEventList {
         return eventList.peekFirst();
     }
 
-    public Event peekNextEvent(String className) {
-        Event result = null;
-        for (Event event : eventList) {
-            if (className.equals(event.getClass().getName())) {
-                result = event;
-                break;
-            }
-        }
-        return result;
-    }
-
     public Event pollNextEvent() {
         return eventList.pollFirst();
     }
-
-    public Event pollNextEvent(String className) {
-        Event event = peekNextEvent(className);
-        if (event != null) {
-            eventList.remove(event);
-        }
-        return event;
-    }
-
 }

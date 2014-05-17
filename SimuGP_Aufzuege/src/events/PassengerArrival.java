@@ -40,6 +40,7 @@ public class PassengerArrival extends PassengerEvent {
 
     @Override
     public void execute() {
+        getPassenger().setWaitingStartTime(getEventTime());
         getPassenger().getSTART_FLOOR().handlePassengerArrival(getPassenger());
     }
 

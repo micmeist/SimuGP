@@ -21,22 +21,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 package controller;
 
 /**
  *
  * @author micmeist
  */
-public class GlobalVariables {
+public class Statistics {
 
-    //Hight of a single Floor in meters
-    public static final double FLOOR_HIGHT = 150;
-    //Mean of passenger arrival time in seconds
-    public static final double PASSENGER_ARRIVAL_EVENT_TIME_MEAN = 120;
-    //Mean of time passengers need to enter or leave elevator in seconds
-    public static final double PASSENGER_ENTER_AND_LEAVE_EVENT_TIME_MEAN = 2;
+    private Statistics() {
+    }
+    
+    private static double maxWaitingTime;
 
-    //Simulation time in seconds
-    public static double simulationTime = 0;
+    public static void passengerWaitingTime(double start, double end){
+        double waitingTime = end - start;
+        if(waitingTime > maxWaitingTime){
+            maxWaitingTime = waitingTime;
+        }
+    }
 
+    public static double getMaxWaitingTime() {
+        return maxWaitingTime;
+    }
+    
+    
+    
 }

@@ -36,6 +36,10 @@ public class Floor extends AbstractFloor{
         super(floorNumber, building);
     }
 
+    public int getNumberOfPassangersOnFloor() {
+        return passangersOnFloor;
+    }
+    
     @Override
     public boolean isGroundFloor() {
         return false;

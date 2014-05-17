@@ -37,7 +37,7 @@ public class StateWaiting extends ElevatorState{
     @Override
     public void handleCall(AbstractFloor floor) {
         //If same Floor set calling floor else plan StartMovingEvent
-        if(elevator.getCurrentFloor().getFloorNumber() == floor.getFloorNumber()){
+        if(elevator.getCurrentFloor().equals(floor)){
             elevator.setCallingFloor(floor);
         }else{
             elevator.planStartMoving(floor);

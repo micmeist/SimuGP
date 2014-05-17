@@ -93,7 +93,7 @@ public class Elevator implements Process {
     
     //Handler
     public void handleArrival(AbstractFloor floor) {
-        logger.log(Level.INFO, "Elevator arrived at floor {0}", floor.getFloorNumber());
+        logger.log(Level.FINE, "Elevator arrived at floor {0}", floor.getFloorNumber());
         currentFloor = floor;
         destination = null;
         notifyArrivalPassenger();
@@ -104,7 +104,7 @@ public class Elevator implements Process {
     }
 
     public void handleStartMoving(AbstractFloor floor) {
-        logger.log(Level.INFO, "Elevator start moving form floor {0} to floor {1}", new Object[]{currentFloor.getFloorNumber(), floor.getFloorNumber()});
+        logger.log(Level.FINE, "Elevator start moving form floor {0} to floor {1}", new Object[]{currentFloor.getFloorNumber(), floor.getFloorNumber()});
         currentState = new StateMoving(this);
         destination = floor;
         planElevatorArrival(floor);
@@ -117,7 +117,7 @@ public class Elevator implements Process {
     public void handlePassengerLeaved(Passenger passenger) {
         passengers.remove(passenger);
         passenger.getDESTINATION_FLOOR().addPassengerOnFloor();
-        logger.log(Level.INFO, "Passenger leaved elevator. {0} passenger(s) in elevator now", passengers.size());
+        logger.log(Level.FINE, "Passenger leaved elevator. {0} passenger(s) in elevator now", passengers.size());
         numberOfPassengersTransported++;
         notifyArrivalPassenger();
     }
@@ -126,12 +126,12 @@ public class Elevator implements Process {
         passenger.getSTART_FLOOR().removePassenger(passenger);
         passenger.getSTART_FLOOR().reducePassengerOnFloor();
         passengers.add(passenger);
-        logger.log(Level.INFO, "Passenger entered elevator. {0} passenger(s) in elevator now", passengers.size());
+        logger.log(Level.FINE, "Passenger entered elevator. {0} passenger(s) in elevator now", passengers.size());
         //More passengers should come when capacity is not reached
         if (passengers.size() < CAPACITY ) {
             notifyArrivalFloor();
         } else {
-            logger.info("Elevator capacity reached");
+            logger.fine("Elevator capacity reached");
             numberOfSituationsCapacityReached++;
         }
         planStartMoving(passenger.getDESTINATION_FLOOR());
@@ -152,10 +152,10 @@ public class Elevator implements Process {
     private void notifyArrivalPassenger() {
         //Notify passengers in elevator. If Elevator is empty notify floor
         if (passengers.isEmpty()) {
-            logger.log(Level.INFO, "No passengers left in elevator, passengers on floor {0} can start entering elevator.", currentFloor.getFloorNumber());
+            logger.log(Level.FINE, "No passengers left in elevator, passengers on floor {0} can start entering elevator.", currentFloor.getFloorNumber());
             notifyArrivalFloor();
         } else {
-            logger.log(Level.INFO, "{0} passenger(s) in elevator now. Continue leaving elevator", passengers.size());
+            logger.log(Level.FINE, "{0} passenger(s) in elevator now. Continue leaving elevator", passengers.size());
             passengers.getLast().handleArrivalAtFloor(currentFloor, this);
         }
     }

@@ -25,6 +25,7 @@
 package events;
 
 import controller.GlobalVariables;
+import controller.Statistics;
 import helper.RandomGenerator;
 import process.Elevator;
 import process.Passenger;
@@ -44,6 +45,7 @@ public class PassengerEntered extends PassengerEvent{
 
     @Override
     public void execute() {
+        Statistics.passengerWaitingTime(getPassenger().getWaitingStartTime(), getEventTime());
         elevator.handlePassengerEntered(getPassenger());
     }
     

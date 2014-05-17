@@ -35,6 +35,9 @@ public class Passenger implements Process {
 
     private final AbstractFloor startFloor;
     private final AbstractFloor destinationFloor;
+    
+    //statistics
+    private double waitingStartTime;
 
     public Passenger(AbstractFloor startFloor, AbstractFloor destinationFloor) {
         this.startFloor = startFloor;
@@ -49,9 +52,17 @@ public class Passenger implements Process {
         return destinationFloor;
     }
 
+    public double getWaitingStartTime() {
+        return waitingStartTime;
+    }
+
+    public void setWaitingStartTime(double waitingStartTime) {
+        this.waitingStartTime = waitingStartTime;
+    }
+
     //Handler
     public void handleElevatorArrival(Elevator elevator) {
-        planEnterElevatorEvent(elevator);
+        planEnteredElevatorEvent(elevator);
     }
 
     public void handleArrivalAtFloor(AbstractFloor floor, Elevator elevator) {
@@ -61,7 +72,7 @@ public class Passenger implements Process {
     }
     
     //Planer
-    private void planEnterElevatorEvent(Elevator elevator) {
+    private void planEnteredElevatorEvent(Elevator elevator) {
         elevator.setState(new StateWaiting(elevator));
         FutureEventList.getInstance().addPassengerEvent(new PassengerEntered(this, elevator));
     }

@@ -33,7 +33,7 @@ import process.AbstractFloor;
  */
 public class ElevatorArrival extends ElevatorEvent{
     
-    private AbstractFloor floor;
+    private final AbstractFloor floor;
 
     public ElevatorArrival(Elevator elevator, double eventTime, AbstractFloor floor) {
         super(elevator, eventTime);
