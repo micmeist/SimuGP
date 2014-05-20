@@ -6,7 +6,7 @@
 package controller;
 
 import events.Event;
-import events.PassengerArrival;
+import events.PassengerArrivalOnGround;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import process.Building;
@@ -30,7 +30,7 @@ public class SimuGP_Aufzuege {
         LOGGER.info("Start of simulation");
 
         building = new Building(2, 0);
-        FutureEventList.getInstance().addPassengerEvent(new PassengerArrival(building.getFloor(0), building.getFloor(1)));
+        FutureEventList.getInstance().addPassengerEvent(new PassengerArrivalOnGround(building.getFloor(0), building.getFloor(1)));
 
         while (GlobalVariables.simulationTime < maxSimulationTime) {
             try {

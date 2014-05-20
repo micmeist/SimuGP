@@ -78,7 +78,7 @@ public class FutureEventList {
 
     public void addPassengerEvent(PassengerEvent passengerEvent) {
         logger.entering(this.getClass().getName(), "addPassengerEvent");
-        if (passengerEvent.getClass().getName().equals(PassengerArrival.class.getName())) {
+        if ((passengerEvent instanceof PassengerArrival)) {
             addPassengerArrivalEvent((PassengerArrival) passengerEvent);
         } else {
             addPassengerLeavedOrEnteredEvent(passengerEvent);

@@ -41,7 +41,7 @@ public class Elevator implements Process {
 
     private final int CAPACITY;
     //Speed in meter/seconds
-    private final int SPEED;
+    private final double SPEED;
     private final double TIME_TO_MOVE_DOOR;
     private final ArrayDeque<Passenger> passengers = new ArrayDeque();
 
@@ -55,7 +55,7 @@ public class Elevator implements Process {
     private int numberOfPassengersTransported = 0;
     private int numberOfSituationsCapacityReached = 0;
 
-    public Elevator(int capacity, int speed, AbstractFloor currentFloor, double TIME_TO_MOVE_DOOR) {
+    public Elevator(int capacity, double speed, AbstractFloor currentFloor, double TIME_TO_MOVE_DOOR) {
         this.CAPACITY = capacity;
         this.SPEED = speed;
         this.TIME_TO_MOVE_DOOR = TIME_TO_MOVE_DOOR;
@@ -123,8 +123,7 @@ public class Elevator implements Process {
     }
 
     public void handlePassengerEntered(Passenger passenger) {
-        passenger.getSTART_FLOOR().removePassenger(passenger);
-        passenger.getSTART_FLOOR().reducePassengerOnFloor();
+        passenger.getSTART_FLOOR().removePassengerFromQueue(passenger);
         passengers.add(passenger);
         logger.log(Level.FINE, "Passenger entered elevator. {0} passenger(s) in elevator now", passengers.size());
         //More passengers should come when capacity is not reached

@@ -23,8 +23,6 @@
  */
 package process;
 
-import controller.FutureEventList;
-import events.PassengerArrival;
 import java.util.ArrayDeque;
 
 /**
@@ -41,30 +39,31 @@ public abstract class AbstractFloor implements Process {
         this.floorNumber = floorNumber;
         this.building = building;
     }
-    
+
     public abstract boolean hasPassengersOn();
-    
+
     public abstract boolean isGroundFloor();
 
     public int getFloorNumber() {
         return floorNumber;
     }
-    
-    public int getCurrentNumberOfPassengersInQueue(){
+
+    public int getCurrentNumberOfPassengersInQueue() {
         return passangersInQueue.size();
     }
-    
-    public void removePassenger(Passenger passenger){
+
+    public void removePassengerFromQueue(Passenger passenger) {
         passangersInQueue.remove(passenger);
     }
-    
+
     public abstract void addPassengerOnFloor();
-    
-    public abstract void reducePassengerOnFloor();
+
+    public abstract void reducePassengersOnFloor();
 
     //Handler
     public void handlePassengerArrival(Passenger passenger) {
         passangersInQueue.add(passenger);
+        reducePassengersOnFloor();
         planPassengerArrival();
         callElevator();
     }
@@ -77,7 +76,7 @@ public abstract class AbstractFloor implements Process {
     private void notifyPassengers() {
         if (!passangersInQueue.isEmpty()) {
             passangersInQueue.getFirst().handleElevatorArrival(building.getElevator());
-        }else{
+        } else {
             building.getElevator().setState(new StateWaitingEmpty(building.getElevator()));
         }
     }
@@ -87,9 +86,6 @@ public abstract class AbstractFloor implements Process {
     }
 
     //Planer
-    private void planPassengerArrival() {
-        AbstractFloor startFloor = building.getRandomFloorWithPassengers();
-        FutureEventList.getInstance().addPassengerEvent(new PassengerArrival(startFloor, building.getRandomFloor(startFloor)));
-    }
+    protected abstract void planPassengerArrival();
 
 }

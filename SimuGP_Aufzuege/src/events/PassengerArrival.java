@@ -23,19 +23,16 @@
  */
 package events;
 
-import helper.RandomGenerator;
-import process.AbstractFloor;
-import controller.GlobalVariables;
 import process.Passenger;
 
 /**
  *
  * @author micmeist
  */
-public class PassengerArrival extends PassengerEvent {
+public abstract class PassengerArrival extends PassengerEvent {
 
-    public PassengerArrival(AbstractFloor startFloor, AbstractFloor destinationFloor) {
-        super(new Passenger(startFloor, destinationFloor), RandomGenerator.getInstance().getExponential(GlobalVariables.PASSENGER_ARRIVAL_EVENT_TIME_MEAN));
+    public PassengerArrival(Passenger passenger, double eventTime) {
+        super(passenger, eventTime);
     }
 
     @Override

@@ -21,45 +21,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package process;
 
-import controller.FutureEventList;
-import events.PassengerArrivalOnGround;
+package events;
+
+import controller.GlobalVariables;
+import helper.RandomGenerator;
+import process.AbstractFloor;
+import process.Passenger;
 
 /**
  *
  * @author micmeist
  */
-public class GroundFloor extends AbstractFloor {
+public class PassengerArrivalOnGround extends PassengerArrival{
 
-    public GroundFloor(Building building) {
-        super(0, building);
+    public PassengerArrivalOnGround(AbstractFloor startFloor, AbstractFloor destinationFloor) {
+        super(new Passenger(startFloor, destinationFloor), RandomGenerator.getInstance().getExponential(GlobalVariables.PASSENGER_ARRIVAL_EVENT_TIME_MEAN));
     }
-
-    @Override
-    public boolean isGroundFloor() {
-        return true;
-    }
-
-    @Override
-    public boolean hasPassengersOn() {
-        //return true because passengers coming into the building arrvie here
-        return true;
-    }
-
-    @Override
-    public void addPassengerOnFloor() {
-        //Do nothing
-    }
-
-    @Override
-    public void reducePassengersOnFloor() {
-        //Do nothing
-    }
-
-    @Override
-    protected void planPassengerArrival() {
-        FutureEventList.getInstance().addPassengerEvent(new PassengerArrivalOnGround(this, building.getRandomFloor(this)));
-    }
-
+    
 }

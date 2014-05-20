@@ -23,6 +23,7 @@
  */
 package process;
 
+import controller.GlobalVariables;
 import helper.RandomGenerator;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +40,7 @@ public class Building {
     public Building(int numberOfFloors, int elevatorStartFloor) {
         floors = new ArrayList();
         createFloors(numberOfFloors);
-        elevator = new Elevator(10, 5, floors.get(elevatorStartFloor), 4);
+        elevator = new Elevator(GlobalVariables.ELEVATOR_CAPACITY, GlobalVariables.ELEVATOR_SPEED, floors.get(elevatorStartFloor), 4);
     }
 
     private void createFloors(int numberOfFloors) {
