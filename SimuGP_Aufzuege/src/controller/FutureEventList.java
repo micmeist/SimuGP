@@ -30,6 +30,7 @@ import events.PassengerArrival;
 import events.PassengerEntered;
 import events.PassengerEvent;
 import events.PassengerLeaved;
+import events.PassengerMoving;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -124,8 +125,7 @@ public class FutureEventList {
         if (add) {
             for (Event event : eventList) {
                 //elevatorStartMovingEvent is starting right after the last PassengerLeaved, PassengerEntered or ElevatorArrival event
-                if (event instanceof PassengerLeaved
-                        || event instanceof PassengerEntered
+                if (event instanceof PassengerMoving
                         || event instanceof ElevatorArrival) {
                     elevatorStartMovingEvent.setEventTime(event.getEventTime());
                     index = eventList.indexOf(event) + 1;
