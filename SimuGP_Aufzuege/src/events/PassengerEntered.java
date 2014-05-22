@@ -21,7 +21,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package events;
 
 import controller.GlobalVariables;
@@ -34,13 +33,10 @@ import process.Passenger;
  *
  * @author micmeist
  */
-public class PassengerEntered extends PassengerEvent{
-    
-    private final Elevator elevator;
+public class PassengerEntered extends PassengerMoving {
 
     public PassengerEntered(Passenger passenger, Elevator elevator) {
-        super(passenger, RandomGenerator.getInstance().getExponential(GlobalVariables.PASSENGER_ENTER_AND_LEAVE_EVENT_TIME_MEAN));
-        this.elevator = elevator;
+        super(passenger, RandomGenerator.getInstance().getExponential(GlobalVariables.PASSENGER_ENTER_AND_LEAVE_EVENT_TIME_MEAN), elevator);
     }
 
     @Override
@@ -48,5 +44,5 @@ public class PassengerEntered extends PassengerEvent{
         Statistics.passengerWaitingTime(getPassenger().getWaitingStartTime(), getEventTime());
         elevator.handlePassengerEntered(getPassenger());
     }
-    
+
 }

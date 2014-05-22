@@ -24,30 +24,25 @@
 
 package events;
 
-import process.ElevatorImpl;
-import process.Floor;
+import process.Elevator;
+import process.Passenger;
 
 /**
  *
  * @author micmeist
  */
-public class ElevatorStartMoving extends ElevatorEvent{
-    
-    public final Floor floorToMoveTo;
+public class PassengerMoving extends PassengerEvent{
 
-    public ElevatorStartMoving(ElevatorImpl elevator, Floor floorToMoveTo) {
-        //Elevator start moving immediately
-        super(elevator, 0.0);
-        this.floorToMoveTo = floorToMoveTo;
+    protected final Elevator elevator;
+    
+    public PassengerMoving(Passenger passenger, double eventTime, Elevator elevator) {
+        super(passenger, eventTime);
+        this.elevator = elevator;
     }
 
-    public Floor getFloorToMoveTo() {
-        return floorToMoveTo;
-    }
-    
     @Override
     public void execute() {
-        getElevator().handleStartMoving(floorToMoveTo);
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

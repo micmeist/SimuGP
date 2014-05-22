@@ -32,7 +32,7 @@ import events.PassengerArrivalOnGround;
  */
 public class GroundFloor extends AbstractFloor {
 
-    public GroundFloor(Building building) {
+    public GroundFloor(BuildingImpl building) {
         super(0, building);
     }
 

@@ -28,15 +28,8 @@ package process;
  *
  * @author micmeist
  */
-public abstract class ElevatorState {
-    
-    protected Elevator elevator;
+public interface ElevatorState {
 
-    public ElevatorState(Elevator elevator) {
-        this.elevator = elevator;
-    }
-    
-    public abstract void handleCall(AbstractFloor floor);
-
+    void handleCall(Floor floor);
     
 }

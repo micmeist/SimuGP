@@ -28,14 +28,14 @@ package process;
  *
  * @author micmeist
  */
-public class StateMoving extends ElevatorState{
+public class StateMoving extends AbstractElevatorState{
 
     public StateMoving(Elevator elevator) {
         super(elevator);
     }
 
     @Override
-    public void handleCall(AbstractFloor floor) {
+    public void handleCall(Floor floor) {
         //If same floor like destination do nothing else set calling floor
         if(elevator.getDestination().getFloorNumber() != floor.getFloorNumber()){
             elevator.setCallingFloor(floor);

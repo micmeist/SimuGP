@@ -33,13 +33,12 @@ import process.Passenger;
  *
  * @author micmeist
  */
-public class PassengerLeaved extends PassengerEvent{
+public class PassengerLeaved extends PassengerMoving{
     
-    private final Elevator elevator;
+    
 
     public PassengerLeaved(Passenger passenger, Elevator elevator) {
-        super(passenger, RandomGenerator.getInstance().getExponential(GlobalVariables.PASSENGER_ENTER_AND_LEAVE_EVENT_TIME_MEAN));
-        this.elevator = elevator;
+        super(passenger, RandomGenerator.getInstance().getExponential(GlobalVariables.PASSENGER_ENTER_AND_LEAVE_EVENT_TIME_MEAN), elevator);
     }
 
     @Override

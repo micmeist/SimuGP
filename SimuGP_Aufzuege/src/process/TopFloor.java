@@ -21,15 +21,55 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package process;
+
+import controller.FutureEventList;
+import events.PassengerArrivalOnFloor;
 
 /**
  *
  * @author micmeist
  */
-public interface Process {
-    
-    
-    
+public class TopFloor extends AbstractFloor {
+
+    private int passangersOnFloor = 0;
+
+    public TopFloor(int floorNumber, BuildingImpl building) {
+        super(floorNumber, building);
+    }
+
+    public int getNumberOfPassangersOnFloor() {
+        return passangersOnFloor;
+    }
+
+    @Override
+    public boolean isGroundFloor() {
+        return false;
+    }
+
+    @Override
+    public boolean hasPassengersOn() {
+        return passangersOnFloor > 0;
+    }
+
+    @Override
+    public void addPassengerOnFloor() {
+        passangersOnFloor++;
+        if(passangersOnFloor == 1){
+            planPassengerArrival();
+        }
+        
+    }
+
+    @Override
+    public void reducePassengersOnFloor() {
+        passangersOnFloor--;
+    }
+
+    @Override
+    protected void planPassengerArrival() {
+        if (hasPassengersOn()) {
+            FutureEventList.getInstance().addPassengerEvent(new PassengerArrivalOnFloor(this, building.getRandomFloor(this)));
+        }
+    }
 }

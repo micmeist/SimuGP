@@ -22,32 +22,19 @@
  * THE SOFTWARE.
  */
 
-package events;
-
-import process.ElevatorImpl;
-import process.Floor;
+package process;
 
 /**
  *
  * @author micmeist
  */
-public class ElevatorStartMoving extends ElevatorEvent{
+public abstract class AbstractElevatorState implements ElevatorState {
     
-    public final Floor floorToMoveTo;
+    protected Elevator elevator;
 
-    public ElevatorStartMoving(ElevatorImpl elevator, Floor floorToMoveTo) {
-        //Elevator start moving immediately
-        super(elevator, 0.0);
-        this.floorToMoveTo = floorToMoveTo;
+    public AbstractElevatorState(Elevator elevator) {
+        this.elevator = elevator;
     }
 
-    public Floor getFloorToMoveTo() {
-        return floorToMoveTo;
-    }
-    
-    @Override
-    public void execute() {
-        getElevator().handleStartMoving(floorToMoveTo);
-    }
     
 }

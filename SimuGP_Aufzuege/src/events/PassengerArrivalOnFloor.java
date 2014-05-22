@@ -26,7 +26,7 @@ package events;
 import controller.GlobalVariables;
 import helper.RandomGenerator;
 import process.AbstractFloor;
-import process.Passenger;
+import process.PassengerImpl;
 
 /**
  *
@@ -35,6 +35,6 @@ import process.Passenger;
 public class PassengerArrivalOnFloor extends PassengerArrival {
 
      public PassengerArrivalOnFloor(AbstractFloor startFloor, AbstractFloor destinationFloor) {
-        super(new Passenger(startFloor, destinationFloor), RandomGenerator.getInstance().getInt(GlobalVariables.TIME_PASSENGER_SPEND_ON_FLOOR_LOWER, GlobalVariables.TIME_PASSENGER_SPEND_ON_FLOOR_UPPER));
+        super(new PassengerImpl(startFloor, destinationFloor), RandomGenerator.getInstance().getInt(GlobalVariables.TIME_PASSENGER_SPEND_ON_FLOOR_LOWER, GlobalVariables.TIME_PASSENGER_SPEND_ON_FLOOR_UPPER));
     }
 }

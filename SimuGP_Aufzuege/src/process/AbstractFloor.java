@@ -29,7 +29,7 @@ import java.util.ArrayDeque;
  *
  * @author micmeist
  */
-public abstract class AbstractFloor implements Process {
+public abstract class AbstractFloor implements Floor {
 
     protected final ArrayDeque<Passenger> passangersInQueue = new ArrayDeque();
     protected final int floorNumber;
@@ -40,27 +40,23 @@ public abstract class AbstractFloor implements Process {
         this.building = building;
     }
 
-    public abstract boolean hasPassengersOn();
-
-    public abstract boolean isGroundFloor();
-
+    @Override
     public int getFloorNumber() {
         return floorNumber;
     }
 
+    @Override
     public int getCurrentNumberOfPassengersInQueue() {
         return passangersInQueue.size();
     }
 
+    @Override
     public void removePassengerFromQueue(Passenger passenger) {
         passangersInQueue.remove(passenger);
     }
 
-    public abstract void addPassengerOnFloor();
-
-    public abstract void reducePassengersOnFloor();
-
     //Handler
+    @Override
     public void handlePassengerArrival(Passenger passenger) {
         passangersInQueue.add(passenger);
         reducePassengersOnFloor();
@@ -68,6 +64,7 @@ public abstract class AbstractFloor implements Process {
         callElevator();
     }
 
+    @Override
     public void handleElevatorArrival() {
         notifyPassengers();
     }

@@ -21,55 +21,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package process;
 
-import controller.FutureEventList;
-import events.PassengerArrivalOnFloor;
+package process;
 
 /**
  *
  * @author micmeist
  */
-public class Floor extends AbstractFloor {
+public interface Floor {
 
-    private int passangersOnFloor = 0;
+    void addPassengerOnFloor();
 
-    public Floor(int floorNumber, Building building) {
-        super(floorNumber, building);
-    }
+    int getCurrentNumberOfPassengersInQueue();
 
-    public int getNumberOfPassangersOnFloor() {
-        return passangersOnFloor;
-    }
+    int getFloorNumber();
 
-    @Override
-    public boolean isGroundFloor() {
-        return false;
-    }
+    void handleElevatorArrival();
 
-    @Override
-    public boolean hasPassengersOn() {
-        return passangersOnFloor > 0;
-    }
+    //Handler
+    void handlePassengerArrival(Passenger passenger);
 
-    @Override
-    public void addPassengerOnFloor() {
-        passangersOnFloor++;
-        if(passangersOnFloor == 1){
-            planPassengerArrival();
-        }
-        
-    }
+    boolean hasPassengersOn();
 
-    @Override
-    public void reducePassengersOnFloor() {
-        passangersOnFloor--;
-    }
+    boolean isGroundFloor();
 
-    @Override
-    protected void planPassengerArrival() {
-        if (hasPassengersOn()) {
-            FutureEventList.getInstance().addPassengerEvent(new PassengerArrivalOnFloor(this, building.getRandomFloor(this)));
-        }
-    }
+    void reducePassengersOnFloor();
+
+    void removePassengerFromQueue(Passenger passenger);
+    
 }

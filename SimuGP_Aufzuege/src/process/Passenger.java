@@ -21,65 +21,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package process;
 
-import controller.FutureEventList;
-import events.PassengerEntered;
-import events.PassengerLeaved;
+package process;
 
 /**
  *
  * @author micmeist
  */
-public class Passenger implements Process {
+public interface Passenger {
 
-    private final AbstractFloor startFloor;
-    private final AbstractFloor destinationFloor;
-    
-    //statistics
-    private double waitingStartTime;
+    Floor getDESTINATION_FLOOR();
 
-    public Passenger(AbstractFloor startFloor, AbstractFloor destinationFloor) {
-        this.startFloor = startFloor;
-        this.destinationFloor = destinationFloor;
-    }
+    Floor getSTART_FLOOR();
 
-    public AbstractFloor getSTART_FLOOR() {
-        return startFloor;
-    }
+    double getWaitingStartTime();
 
-    public AbstractFloor getDESTINATION_FLOOR() {
-        return destinationFloor;
-    }
-
-    public double getWaitingStartTime() {
-        return waitingStartTime;
-    }
-
-    public void setWaitingStartTime(double waitingStartTime) {
-        this.waitingStartTime = waitingStartTime;
-    }
+    void handleArrivalAtFloor(Floor floor, Elevator elevator);
 
     //Handler
-    public void handleElevatorArrival(Elevator elevator) {
-        planEnteredElevatorEvent(elevator);
-    }
+    void handleElevatorArrival(Elevator elevator);
 
-    public void handleArrivalAtFloor(AbstractFloor floor, Elevator elevator) {
-        if(destinationFloor.equals(floor)){
-            planLeaveElevatorEvent(elevator);
-        }
-    }
+    void setWaitingStartTime(double waitingStartTime);
     
-    //Planer
-    private void planEnteredElevatorEvent(Elevator elevator) {
-        elevator.setState(new StateWaiting(elevator));
-        FutureEventList.getInstance().addPassengerEvent(new PassengerEntered(this, elevator));
-    }
-
-    private void planLeaveElevatorEvent(Elevator elevator) {
-        elevator.setState(new StateWaiting(elevator));
-        FutureEventList.getInstance().addPassengerEvent(new PassengerLeaved(this, elevator));
-    }
-
 }

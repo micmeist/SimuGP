@@ -10,7 +10,8 @@ import events.PassengerArrivalOnGround;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import process.Building;
-import process.Floor;
+import process.BuildingImpl;
+import process.TopFloor;
 
 /**
  *
@@ -29,7 +30,7 @@ public class SimuGP_Aufzuege {
     public static void main(String[] args) {
         LOGGER.info("Start of simulation");
 
-        building = new Building(2, 0);
+        building = new BuildingImpl(2, 0);
         FutureEventList.getInstance().addPassengerEvent(new PassengerArrivalOnGround(building.getFloor(0), building.getFloor(1)));
 
         while (GlobalVariables.simulationTime < maxSimulationTime) {
@@ -49,7 +50,7 @@ public class SimuGP_Aufzuege {
     }
 
     private static void printStatistics() {
-        Floor floor = (Floor) building.getFloor(1);
+        TopFloor floor = (TopFloor) building.getFloor(1);
         LOGGER.log(Level.INFO, "Number of transported passengers: {0} \n"
                 + "Number of situations elevator capacity reached: {1} \n"
                 + "Number of passengers in queue on floor 0: {2} \n"

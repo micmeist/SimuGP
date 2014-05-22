@@ -28,14 +28,14 @@ package process;
  *
  * @author micmeist
  */
-public class StateWaitingEmpty extends ElevatorState{
+public class StateWaitingEmpty extends AbstractElevatorState{
 
     public StateWaitingEmpty(Elevator elevator) {
-        super(elevator);
+        super((ElevatorImpl) elevator);
     }
 
     @Override
-    public void handleCall(AbstractFloor floor) {
+    public void handleCall(Floor floor) {
         elevator.planStartMoving(floor);
     }
 
