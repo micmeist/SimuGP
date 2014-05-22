@@ -80,7 +80,7 @@ public class FutureEventList {
         if ((passengerEvent instanceof PassengerArrival)) {
             addPassengerArrivalEvent((PassengerArrival) passengerEvent);
         } else {
-            addPassengerLeavedOrEnteredEvent(passengerEvent);
+            addPassengerMovingEvent(passengerEvent);
         }
     }
 
@@ -89,7 +89,7 @@ public class FutureEventList {
         addEvent(event);
     }
 
-    private void addPassengerLeavedOrEnteredEvent(PassengerEvent passengerEvent) {
+    private void addPassengerMovingEvent(PassengerEvent passengerEvent) {
         logger.entering(this.getClass().getName(), "addPassengerLeavedOrEnteredEvent");
         addEventBevoreStartMovingEvent(passengerEvent);
     }
