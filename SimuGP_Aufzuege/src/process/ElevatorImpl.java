@@ -49,18 +49,17 @@ public class ElevatorImpl implements Elevator  {
     //Null if elevator is not moving
     private Floor destination = null;
     private Floor callingFloor = null;
-    private ElevatorState currentState;
+    private ElevatorState currentState = new StateWaitingEmpty(this);
 
     //Statistics
     private int numberOfPassengersTransported = 0;
     private int numberOfSituationsCapacityReached = 0;
 
-    public ElevatorImpl(int capacity, double speed, AbstractFloor currentFloor, double TIME_TO_MOVE_DOOR) {
+    public ElevatorImpl(int capacity, double speed, Floor currentFloor, double TIME_TO_MOVE_DOOR) {
         this.CAPACITY = capacity;
         this.SPEED = speed;
         this.TIME_TO_MOVE_DOOR = TIME_TO_MOVE_DOOR;
         this.currentFloor = currentFloor;
-        this.currentState = new StateWaitingEmpty(this);
     }
 
     @Override
