@@ -32,10 +32,10 @@ public interface Building {
 
     Elevator getElevator();
 
-    AbstractFloor getFloor(int index);
+    Floor getFloor(int index);
 
-    AbstractFloor getRandomFloor(AbstractFloor floor);
+    Floor getRandomFloor(AbstractFloor floor);
 
-    AbstractFloor getRandomFloorWithPassengers();
+    Floor getRandomFloorWithPassengers();
     
 }

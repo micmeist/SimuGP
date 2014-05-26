@@ -35,7 +35,7 @@ import java.util.List;
 public class BuildingImpl implements Building {
 
     private final Elevator elevator;
-    private final List<AbstractFloor> floors;
+    private final List<Floor> floors;
 
     public BuildingImpl(int numberOfFloors, int elevatorStartFloor) {
         floors = new ArrayList();
@@ -50,9 +50,9 @@ public class BuildingImpl implements Building {
         }
     }
 
-    private List<AbstractFloor> getFloorsWithPassengersOn() {
-        List<AbstractFloor> result = new ArrayList();
-        for (AbstractFloor floor : floors) {
+    private List<Floor> getFloorsWithPassengersOn() {
+        List<Floor> result = new ArrayList();
+        for (Floor floor : floors) {
             if (floor.hasPassengersOn()) {
                 result.add(floor);
             }
@@ -62,13 +62,13 @@ public class BuildingImpl implements Building {
     }
 
     @Override
-    public AbstractFloor getFloor(int index) {
+    public Floor getFloor(int index) {
         return floors.get(index);
     }
 
     @Override
-    public AbstractFloor getRandomFloor( AbstractFloor floor) {
-        AbstractFloor result;
+    public Floor getRandomFloor( AbstractFloor floor) {
+        Floor result;
         do {
             result = floors.get(RandomGenerator.getInstance().getInt(0, floors.size() - 1));
         } while (floor.equals(result));
@@ -76,9 +76,9 @@ public class BuildingImpl implements Building {
     }
 
     @Override
-    public AbstractFloor getRandomFloorWithPassengers() {
-        List<AbstractFloor> floorsWithPassengersOn = getFloorsWithPassengersOn();
-        AbstractFloor result;
+    public Floor getRandomFloorWithPassengers() {
+        List<Floor> floorsWithPassengersOn = getFloorsWithPassengersOn();
+        Floor result;
 
         if (floorsWithPassengersOn.size() <= 1) {
             result = floors.get(0);
