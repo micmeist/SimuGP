@@ -21,28 +21,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package process;
 
 /**
  *
  * @author micmeist
  */
-public class StateWaiting extends AbstractElevatorState{
+public class StateWaiting extends AbstractElevatorState {
 
+    /**
+     * State the <code>Elevator<code> owns when the elevstor isnt moving but there are some passengers
+     * leaving or entering the elevator.
+     *
+     * @param elevator the elevator which has this status (state) at the moment
+     */
     public StateWaiting(Elevator elevator) {
         super(elevator);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param floor
+     */
     @Override
     public void handleCall(Floor floor) {
         //If same Floor set calling floor else plan StartMovingEvent
-        if(elevator.getCurrentFloor().equals(floor)){
+        if (elevator.getCurrentFloor().equals(floor)) {
             elevator.setCallingFloor(floor);
-        }else{
+        } else {
             elevator.planStartMoving(floor);
         }
     }
 
-    
 }

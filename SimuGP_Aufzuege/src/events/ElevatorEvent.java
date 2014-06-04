@@ -34,11 +34,21 @@ public abstract class ElevatorEvent extends Event{
     
     private final Elevator elevator;
 
-    public ElevatorEvent(Elevator elevator, double eventTime) {
-        super(eventTime);
+    /**
+     *
+     * @param elevator process of this event
+     * @param timeUntilEventOccures the time in seconds between the current simulatuion time
+     * (when the event is planed) and the simulation time when the event occures.
+     */
+    public ElevatorEvent(Elevator elevator, double timeUntilEventOccures) {
+        super(timeUntilEventOccures);
         this.elevator = elevator;
     }
 
+    /**
+     *
+     * @return process of this event
+     */
     protected Elevator getElevator() {
         return elevator;
     }

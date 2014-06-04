@@ -30,33 +30,90 @@ package process;
  */
 public interface Elevator {
 
+    /**
+     *
+     * @return
+     */
     Floor getCurrentFloor();
 
+    /**
+     *
+     * @return
+     */
     int getCurrentNumberOfPassengers();
 
+    /**
+     *
+     * @return
+     */
     Floor getDestination();
 
+    /**
+     *
+     * @return
+     */
     int getNumberOfPassengersTransported();
 
+    /**
+     *
+     * @return
+     */
     int getNumberOfSituationsCapacityReached();
 
     //Handler
-    void handleArrival(Floor floor);
 
+    /**
+     *
+     * @param floor
+     */
+        void handleArrival(Floor floor);
+
+    /**
+     *
+     * @param floor
+     */
     void handleCall(Floor floor);
 
+    /**
+     *
+     * @param passenger
+     */
     void handlePassengerEntered(Passenger passenger);
 
+    /**
+     *
+     * @param passenger
+     */
     void handlePassengerLeaved(Passenger passenger);
 
+    /**
+     *
+     * @param floor
+     */
     void handleStartMoving(Floor floor);
 
+    /**
+     *
+     * @param callingFloor
+     */
     void setCallingFloor(Floor callingFloor);
 
+    /**
+     *
+     * @param currentState
+     */
     void setState(AbstractElevatorState currentState);
     
+    /**
+     *
+     * @param floor
+     */
     void planElevatorArrival(Floor floor);
     
+    /**
+     *
+     * @param floorToMoveTo
+     */
     void planStartMoving(Floor floorToMoveTo);
     
 }

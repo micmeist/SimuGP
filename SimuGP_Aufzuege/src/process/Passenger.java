@@ -30,17 +30,43 @@ package process;
  */
 public interface Passenger {
 
+    /**
+     *
+     * @return
+     */
     Floor getDESTINATION_FLOOR();
 
+    /**
+     *
+     * @return
+     */
     Floor getSTART_FLOOR();
 
+    /**
+     *
+     * @return
+     */
     double getWaitingStartTime();
 
+    /**
+     *
+     * @param floor
+     * @param elevator
+     */
     void handleArrivalAtFloor(Floor floor, Elevator elevator);
 
     //Handler
-    void handleElevatorArrival(Elevator elevator);
 
+    /**
+     *
+     * @param elevator
+     */
+        void handleElevatorArrival(Elevator elevator);
+
+    /**
+     *
+     * @param waitingStartTime
+     */
     void setWaitingStartTime(double waitingStartTime);
     
 }

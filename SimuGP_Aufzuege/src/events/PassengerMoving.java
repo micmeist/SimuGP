@@ -33,13 +33,26 @@ import process.Passenger;
  */
 public class PassengerMoving extends PassengerEvent{
 
+    /**
+     * The elevator the passenger will enter or leave
+     */
     protected final Elevator elevator;
     
-    public PassengerMoving(Passenger passenger, double eventTime, Elevator elevator) {
-        super(passenger, eventTime);
+    /**
+     *
+     * @param passenger the process of this event
+     * @param timeUntilEventOccures the time in seconds between the current simulatuion time
+     * (when the event is planed) and the simulation time when the event occures.
+     * @param elevator the elevator the passenger will enter or leave
+     */
+    public PassengerMoving(Passenger passenger, double timeUntilEventOccures, Elevator elevator) {
+        super(passenger, timeUntilEventOccures);
         this.elevator = elevator;
     }
-
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void execute() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

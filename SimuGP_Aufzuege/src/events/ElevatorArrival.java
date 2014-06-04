@@ -35,11 +35,21 @@ public class ElevatorArrival extends ElevatorEvent{
     
     private final Floor floor;
 
-    public ElevatorArrival(Elevator elevator, double eventTime, Floor floor) {
-        super(elevator, eventTime);
+    /**
+     *
+     * @param elevator proess of this event
+     * @param timeUntilEventOccures the time in seconds between the current simulatuion time
+     * (when the event is planed) and the simulation time when the event occures.
+     * @param floor the floor where the elevator will arrive
+     */
+    public ElevatorArrival(Elevator elevator, double timeUntilEventOccures, Floor floor) {
+        super(elevator, timeUntilEventOccures);
         this.floor = floor;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void execute() {
         getElevator().handleArrival(floor);

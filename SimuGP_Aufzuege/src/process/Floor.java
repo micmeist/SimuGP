@@ -21,7 +21,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package process;
 
 /**
@@ -30,23 +29,63 @@ package process;
  */
 public interface Floor {
 
+    /**
+     * Adding one to the counter for pessangers on the floor. This is not
+     * creating an instance of <code>Passenger</code>
+     */
     void addPassengerOnFloor();
 
+    /**
+     *
+     * @return number of passengers waiting for an elevator
+     */
     int getCurrentNumberOfPassengersInQueue();
 
+    /**
+     *
+     * @return number of the floor beginning with 0 for the ground floor
+     */
     int getFloorNumber();
 
+    /**
+     * Handler for the <code>ElevatorArrival</code> event.
+     */
     void handleElevatorArrival();
 
     //Handler
+    /**
+     * Handler for the <code>PassengerArrival</code> event.
+     * 
+     * @param passenger the passenger who arrives at the floor
+     */
     void handlePassengerArrival(Passenger passenger);
 
+    /**
+     * Check if there are passengers on the floor not waiting for an elevator.
+     * 
+     * @return true if there are passengers on the floor not waiting for an elevator
+     */
     boolean hasPassengersOn();
 
+    /**
+     * Check if the current instance is an instance of <code>GroundFloor</code>
+     *
+     * @return true if the current instance is an instance of <code>GroundFloor</code>
+     */
     boolean isGroundFloor();
 
+    /**
+     * Reducing the counter for passengers on the floor. This is not removing an
+     * instance of <code>Passenger</code>.
+     */
     void reducePassengersOnFloor();
 
+    /**
+     * Remove an instance of <code>Passenger</code> from the queue of pessengers
+     * waiting for an elevator
+     * 
+     * @param passenger the instance to remove
+     */
     void removePassengerFromQueue(Passenger passenger);
-    
+
 }

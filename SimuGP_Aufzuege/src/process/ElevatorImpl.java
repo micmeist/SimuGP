@@ -55,6 +55,13 @@ public class ElevatorImpl implements Elevator  {
     private int numberOfPassengersTransported = 0;
     private int numberOfSituationsCapacityReached = 0;
 
+    /**
+     *
+     * @param capacity
+     * @param speed
+     * @param currentFloor
+     * @param TIME_TO_MOVE_DOOR
+     */
     public ElevatorImpl(int capacity, double speed, Floor currentFloor, double TIME_TO_MOVE_DOOR) {
         this.CAPACITY = capacity;
         this.SPEED = speed;
@@ -62,43 +69,76 @@ public class ElevatorImpl implements Elevator  {
         this.currentFloor = currentFloor;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getNumberOfPassengersTransported() {
         return numberOfPassengersTransported;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getCurrentNumberOfPassengers() {
         return passengers.size();
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getNumberOfSituationsCapacityReached() {
         return numberOfSituationsCapacityReached;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Floor getDestination() {
         return destination;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Floor getCurrentFloor() {
         return currentFloor;
     }
 
+    /**
+     *
+     * @param callingFloor
+     */
     @Override
     public void setCallingFloor(Floor callingFloor) {
         this.callingFloor = callingFloor;
     }
 
+    /**
+     *
+     * @param currentState
+     */
     @Override
     public void setState(AbstractElevatorState currentState) {
         this.currentState = currentState;
     }
     
     //Handler
-    @Override
+
+    /**
+     *
+     * @param floor
+     */
+        @Override
     public void handleArrival(Floor floor) {
         logger.log(Level.FINE, "Elevator arrived at floor {0}", floor.getFloorNumber());
         currentFloor = floor;
@@ -110,6 +150,10 @@ public class ElevatorImpl implements Elevator  {
         }
     }
 
+    /**
+     *
+     * @param floor
+     */
     @Override
     public void handleStartMoving(Floor floor) {
         logger.log(Level.FINE, "Elevator start moving form floor {0} to floor {1}", new Object[]{currentFloor.getFloorNumber(), floor.getFloorNumber()});
@@ -118,11 +162,19 @@ public class ElevatorImpl implements Elevator  {
         planElevatorArrival(floor);
     }
 
+    /**
+     *
+     * @param floor
+     */
     @Override
     public void handleCall(Floor floor) {
         currentState.handleCall(floor);
     }
 
+    /**
+     *
+     * @param passenger
+     */
     @Override
     public void handlePassengerLeaved(Passenger passenger) {
         passengers.remove(passenger);
@@ -132,6 +184,10 @@ public class ElevatorImpl implements Elevator  {
         notifyArrivalPassenger();
     }
 
+    /**
+     *
+     * @param passenger
+     */
     @Override
     public void handlePassengerEntered(Passenger passenger) {
         passenger.getSTART_FLOOR().removePassengerFromQueue(passenger);
@@ -149,12 +205,21 @@ public class ElevatorImpl implements Elevator  {
     }
 
     //Planer
-    @Override
+
+    /**
+     *
+     * @param floor
+     */
+        @Override
     public void planElevatorArrival(Floor floor) {
         double secondsToArrival = calcSecondsToArrival(currentFloor.getFloorNumber(), floor.getFloorNumber());
         FutureEventList.getInstance().addElevatorArrivalEvent(new ElevatorArrival(this, secondsToArrival, floor));
     }
 
+    /**
+     *
+     * @param floorToMoveTo
+     */
     @Override
     public void planStartMoving(Floor floorToMoveTo) {
         FutureEventList.getInstance().addElevatorStartMovingEvent(new ElevatorStartMoving(this, floorToMoveTo));

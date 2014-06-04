@@ -34,6 +34,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * This singleton class provides an list of events and methods to insert specific types 
+ * of events into the list. This list also provides methods to get and remove
+ * always the first events from the list.
  *
  * @author micmeist
  */
@@ -48,6 +51,12 @@ public class FutureEventList {
         this.eventList = new LinkedList();
     }
 
+    /**
+     * Returns the always the same instance of <code>FutureEventList</code> or creats one,
+     * if not created before.
+     * 
+     * @return instance of <code>FutureEventList</code>
+     */
     public static FutureEventList getInstance() {
         if (instance == null) {
             instance = new FutureEventList();
@@ -75,6 +84,14 @@ public class FutureEventList {
 
     }
 
+    /**
+     * Adds an event of the type <code>PassengerEvent</code> to the list of events.
+     * If the event is not an instance of <code>PassengerArrival</code> the event
+     * will be added bevor the <code>ElevatorStartMoving</code> event in the list
+     * of events if exsisting.
+     * 
+     * @param passengerEvent - event to be insert into the list of events
+     */
     public void addPassengerEvent(PassengerEvent passengerEvent) {
         logger.entering(this.getClass().getName(), "addPassengerEvent");
         if ((passengerEvent instanceof PassengerArrival)) {
@@ -109,6 +126,14 @@ public class FutureEventList {
         }
     }
 
+    /**
+     * Adds an envent of the type <code>ElevatorStartMoving</code> to the list of 
+     * events if there are no other events of this type. If there are events of 
+     * the type <code>PassengerMoving</code> or <code>ElevatorArrival</code> the
+     * event will be insert right after them.
+     *
+     * @param elevatorStartMovingEvent - event to be insert into the list of events
+     */
     public void addElevatorStartMovingEvent(ElevatorStartMoving elevatorStartMovingEvent) {
         logger.entering(this.getClass().getName(), "addElevatorStartMovingEvent");
         boolean add = true;
@@ -122,7 +147,7 @@ public class FutureEventList {
         }
         if (add) {
             for (Event event : eventList) {
-                //elevatorStartMovingEvent is starting right after the last PassengerLeaved, PassengerEntered or ElevatorArrival event
+                //elevatorStartMovingEvent is starting right after the last PassengerMoving or ElevatorArrival event
                 if (event instanceof PassengerMoving
                         || event instanceof ElevatorArrival) {
                     elevatorStartMovingEvent.setEventTime(event.getEventTime());
@@ -137,15 +162,33 @@ public class FutureEventList {
 
     }
 
+    /**
+     * Adds an event of the type <code>ElevatorArrival</code> to the list of events
+     * bevor the <code>ElevatorStartMoving</code> event if exsisting.
+     *
+     * @param elevatorArrival - event to be insert into the list of events
+     */
     public void addElevatorArrivalEvent(ElevatorArrival elevatorArrival) {
         logger.entering(this.getClass().getName(), "addElevatorArrivalEvent");
         addEventBevoreStartMovingEvent(elevatorArrival);
     }
 
+    /**
+     * Retrieves, but does not remove, the first element of the list of events, 
+     * or returns null if this list is empty.
+     *
+     * @return the head of this list, or null if this list is empty
+     */
     public Event peekNextEvent() {
         return eventList.peekFirst();
     }
 
+    /**
+     * Retrieves and removes the first element of the list of events, 
+     * or returns null if this list is empty.
+     * 
+     * @return the first element of this list, or null if this list is empty
+     */
     public Event pollNextEvent() {
         return eventList.pollFirst();
     }

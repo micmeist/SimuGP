@@ -32,31 +32,55 @@ import events.PassengerArrivalOnGround;
  */
 public class GroundFloor extends AbstractFloor {
 
+    /**
+     *
+     * @param building
+     */
     public GroundFloor(BuildingImpl building) {
         super(0, building);
     }
 
+    /**
+     * {@inheritDoc}
+     * @return always true because this class is <code>GroundFloor</code>
+     */
     @Override
     public boolean isGroundFloor() {
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * @return always true
+     */
     @Override
     public boolean hasPassengersOn() {
         //return true because passengers coming into the building arrvie here
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addPassengerOnFloor() {
         //Do nothing
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void reducePassengersOnFloor() {
         //Do nothing
     }
 
+    /**
+     *{@inheritDoc}
+     * 
+     * This implementation is creating an <code>PassengerArrivalOnGround</code> event.
+     */
     @Override
     protected void planPassengerArrival() {
         FutureEventList.getInstance().addPassengerEvent(new PassengerArrivalOnGround(this, building.getRandomFloor(this)));

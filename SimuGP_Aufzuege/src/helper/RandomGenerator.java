@@ -26,6 +26,7 @@ package helper;
 import org.apache.commons.math3.random.RandomDataGenerator;
 
 /**
+ * Singleton class providing random values of exponential and normal distribution
  *
  * @author micmeist
  */
@@ -38,6 +39,12 @@ public class RandomGenerator {
         randomDataGenerator = new RandomDataGenerator();
     }
 
+    /**
+     * Returns the always the same instance of <code>RandomGenerator</code> or creats one,
+     * if not created before
+     * 
+     * @return instance of RandomGenerator
+     */
     public static RandomGenerator getInstance() {
         if (instance == null) {
             instance = new RandomGenerator();
@@ -45,10 +52,25 @@ public class RandomGenerator {
         return instance;
     }
 
+    /**
+     * Generates a random value from the exponential distribution with specified
+     * mean using org.apache.commons.math3.random.RandomDataGenerator. 
+     *
+     * @param mean - the mean of the distribution
+     * @return a random value of exponential distribution
+     */
     public double getExponential(double mean) {
         return randomDataGenerator.nextExponential(mean);
     }
 
+    /**
+     * Generates a uniformly distributed random integer between lower and upper 
+     * (endpoints included) using org.apache.commons.math3.random.RandomDataGenerator.
+     * 
+     * @param lower - lower bound for generated integer
+     * @param upper - upper bound for generated integer
+     * @return a random integer greater than or equal to lower and less than or equal to upper
+     */
     public int getInt(int lower, int upper) {
         return randomDataGenerator.nextInt(lower, upper);
     }

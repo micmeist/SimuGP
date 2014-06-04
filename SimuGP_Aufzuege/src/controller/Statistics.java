@@ -25,6 +25,7 @@
 package controller;
 
 /**
+ * This class is recieving statistic data of the simulation
  *
  * @author micmeist
  */
@@ -35,6 +36,13 @@ public class Statistics {
     
     private static double maxWaitingTime;
 
+    /**
+     * Calculates the time a pessenger has to wait for an elevator in seconds 
+     * and saving if the calculated time is higher then the value saved before
+     *
+     * @param start - the current simulation time in seconds when the passenger began to wait for an elevator
+     * @param end
+     */
     public static void passengerWaitingTime(double start, double end){
         double waitingTime = end - start;
         if(waitingTime > maxWaitingTime){
@@ -42,6 +50,10 @@ public class Statistics {
         }
     }
 
+    /**
+     *
+     * @return highest calculated time a pessenger has to wait for an elevator in seconds
+     */
     public static double getMaxWaitingTime() {
         return maxWaitingTime;
     }

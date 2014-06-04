@@ -31,31 +31,67 @@ import java.util.ArrayDeque;
  */
 public abstract class AbstractFloor implements Floor {
 
+    /**
+     * Queue of passengers waiting for an elevator
+     */
     protected final ArrayDeque<Passenger> passangersInQueue = new ArrayDeque();
+
+    /**
+     * The number of the floor beginning with 0 for the ground floor
+     */
     protected final int floorNumber;
+
+    /**
+     * The building containing this floor
+     */
     protected final Building building;
 
+    /**
+     *
+     * @param floorNumber
+     * @param building
+     */
     public AbstractFloor(int floorNumber, Building building) {
         this.floorNumber = floorNumber;
         this.building = building;
     }
 
+    /**
+     *
+     * @return number of the floor beginning with 0 for the ground floor
+     */
     @Override
     public int getFloorNumber() {
         return floorNumber;
     }
 
+    /**
+     *
+     * @return number of passengers waiting for an elevator
+     */
     @Override
     public int getCurrentNumberOfPassengersInQueue() {
         return passangersInQueue.size();
     }
 
+    /**
+     *
+     * @param passenger the instance to remove
+     */
     @Override
     public void removePassengerFromQueue(Passenger passenger) {
         passangersInQueue.remove(passenger);
     }
 
     //Handler
+    /**
+     * {@inheritDoc}
+     * This method adds the arriving passengers to the queue of passengers 
+     * waiting for an elevator, reducing the counter of passengers on floor, calls
+     * the elevator and plan the next <code>PassengerArrival</code> event.
+     * 
+     * @param passenger the passenger who arrives at the floor
+     */
     @Override
     public void handlePassengerArrival(Passenger passenger) {
         passangersInQueue.add(passenger);
@@ -64,6 +100,12 @@ public abstract class AbstractFloor implements Floor {
         callElevator();
     }
 
+    /**
+     *{@inheritDoc}
+     * This method notifies the passengers waiting for an elevator, that an elevator
+     * arrived.
+     * 
+     */
     @Override
     public void handleElevatorArrival() {
         notifyPassengers();
@@ -83,6 +125,11 @@ public abstract class AbstractFloor implements Floor {
     }
 
     //Planer
+    /**
+     * Planing the arrival of an passenger by creating an instance of 
+     * <code>PassengerArrival</code> and adding it to the list of events in the
+     * <code>FutureEventList</code>
+     */
     protected abstract void planPassengerArrival();
 
 }

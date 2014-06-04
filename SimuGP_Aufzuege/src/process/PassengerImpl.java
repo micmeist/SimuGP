@@ -39,37 +39,68 @@ public class PassengerImpl implements Passenger{
     //statistics
     private double waitingStartTime;
 
+    /**
+     *
+     * @param startFloor
+     * @param destinationFloor
+     */
     public PassengerImpl(Floor startFloor, Floor destinationFloor) {
         this.startFloor = startFloor;
         this.destinationFloor = destinationFloor;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Floor getSTART_FLOOR() {
         return startFloor;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Floor getDESTINATION_FLOOR() {
         return destinationFloor;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public double getWaitingStartTime() {
         return waitingStartTime;
     }
 
+    /**
+     *
+     * @param waitingStartTime
+     */
     @Override
     public void setWaitingStartTime(double waitingStartTime) {
         this.waitingStartTime = waitingStartTime;
     }
 
     //Handler
-    @Override
+
+    /**
+     *
+     * @param elevator
+     */
+        @Override
     public void handleElevatorArrival(Elevator elevator) {
         planEnteredElevatorEvent(elevator);
     }
 
+    /**
+     *
+     * @param floor
+     * @param elevator
+     */
     @Override
     public void handleArrivalAtFloor(Floor floor, Elevator elevator) {
         if(destinationFloor.equals(floor)){

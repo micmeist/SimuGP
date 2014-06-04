@@ -37,6 +37,11 @@ public class BuildingImpl implements Building {
     private final Elevator elevator;
     private final List<Floor> floors;
 
+    /**
+     *
+     * @param numberOfFloors
+     * @param elevatorStartFloor
+     */
     public BuildingImpl(int numberOfFloors, int elevatorStartFloor) {
         floors = new ArrayList();
         createFloors(numberOfFloors);
@@ -61,11 +66,21 @@ public class BuildingImpl implements Building {
         return result;
     }
 
+    /**
+     *
+     * @param index
+     * @return
+     */
     @Override
     public Floor getFloor(int index) {
         return floors.get(index);
     }
 
+    /**
+     *
+     * @param floor
+     * @return
+     */
     @Override
     public Floor getRandomFloor( AbstractFloor floor) {
         Floor result;
@@ -75,6 +90,10 @@ public class BuildingImpl implements Building {
         return result;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Floor getRandomFloorWithPassengers() {
         List<Floor> floorsWithPassengersOn = getFloorsWithPassengersOn();
@@ -89,6 +108,10 @@ public class BuildingImpl implements Building {
         return result;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Elevator getElevator() {
         return elevator;

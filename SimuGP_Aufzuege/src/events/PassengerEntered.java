@@ -35,10 +35,18 @@ import process.Passenger;
  */
 public class PassengerEntered extends PassengerMoving {
 
+    /**
+     *
+     * @param passenger the process of this event
+     * @param elevator the elevator the passenger will enter
+     */
     public PassengerEntered(Passenger passenger, Elevator elevator) {
         super(passenger, RandomGenerator.getInstance().getExponential(GlobalVariables.PASSENGER_ENTER_AND_LEAVE_EVENT_TIME_MEAN), elevator);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void execute() {
         Statistics.passengerWaitingTime(getPassenger().getWaitingStartTime(), getEventTime());

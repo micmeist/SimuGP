@@ -34,11 +34,21 @@ public abstract class PassengerEvent extends Event{
     
     private final Passenger passenger;
 
-    public PassengerEvent(Passenger passenger, double eventTime) {
-        super(eventTime);
+    /**
+     *
+     * @param passenger the process of this event
+     * @param timeUntilEventOccures the time in seconds between the current simulatuion time
+     * (when the event is planed) and the simulation time when the event occures.
+     */
+    public PassengerEvent(Passenger passenger, double timeUntilEventOccures) {
+        super(timeUntilEventOccures);
         this.passenger = passenger;
     }
 
+    /**
+     *
+     * @return proccess of this event
+     */
     protected Passenger getPassenger() {
         return passenger;
     }

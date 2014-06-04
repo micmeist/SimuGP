@@ -25,15 +25,26 @@
 package process;
 
 /**
+ * State the <code>Elevator<code> owns when the elevstor isnt moving and there are no passengers
+ * in the elevator or on the current floor.
  *
  * @author micmeist
  */
 public class StateWaitingEmpty extends AbstractElevatorState{
 
+    /**
+     *
+     * @param elevator the elevator which has this status (state) at the moment
+     */
     public StateWaitingEmpty(Elevator elevator) {
         super((ElevatorImpl) elevator);
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * @param floor
+     */
     @Override
     public void handleCall(Floor floor) {
         elevator.planStartMoving(floor);

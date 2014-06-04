@@ -34,24 +34,46 @@ public class TopFloor extends AbstractFloor {
 
     private int passangersOnFloor = 0;
 
+    /**
+     *
+     * @param floorNumber number of floor in the building beginning with 1 for first floor over the ground floor
+     * @param building
+     */
     public TopFloor(int floorNumber, BuildingImpl building) {
         super(floorNumber, building);
     }
 
+    /**
+     * 
+     * @return the number of passengers on the floor not waiting for an elevator
+     */
     public int getNumberOfPassangersOnFloor() {
         return passangersOnFloor;
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * @return always false because this class is not <code>GroundFloor</code>
+     */
     @Override
     public boolean isGroundFloor() {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * @return true if there are passengers on the floor not waiting for an elevator
+     */
     @Override
     public boolean hasPassengersOn() {
         return passangersOnFloor > 0;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addPassengerOnFloor() {
         passangersOnFloor++;
@@ -61,11 +83,19 @@ public class TopFloor extends AbstractFloor {
         
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void reducePassengersOnFloor() {
         passangersOnFloor--;
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * This implementation is creating an <code>PassengerArrivalOnFloor</code> event.
+     */
     @Override
     protected void planPassengerArrival() {
         if (hasPassengersOn()) {

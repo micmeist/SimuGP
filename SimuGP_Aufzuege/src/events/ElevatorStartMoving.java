@@ -33,18 +33,33 @@ import process.Floor;
  */
 public class ElevatorStartMoving extends ElevatorEvent{
     
+    /**
+     *
+     */
     public final Floor floorToMoveTo;
 
+    /**
+     *
+     * @param elevator process of this event
+     * @param floorToMoveTo the floor the elevator has to move to
+     */
     public ElevatorStartMoving(ElevatorImpl elevator, Floor floorToMoveTo) {
         //Elevator start moving immediately
         super(elevator, 0.0);
         this.floorToMoveTo = floorToMoveTo;
     }
 
+    /**
+     *
+     * @return the floor the elevator has to move to
+     */
     public Floor getFloorToMoveTo() {
         return floorToMoveTo;
     }
-    
+ 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void execute() {
         getElevator().handleStartMoving(floorToMoveTo);

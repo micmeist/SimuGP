@@ -30,8 +30,15 @@ package process;
  */
 public abstract class AbstractElevatorState implements ElevatorState {
     
+    /**
+     * The elevator which has this status (state) at the moment
+     */
     protected Elevator elevator;
 
+    /**
+     *
+     * @param elevator the elevator which has this status (state) at the moment
+     */
     public AbstractElevatorState(Elevator elevator) {
         this.elevator = elevator;
     }

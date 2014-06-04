@@ -25,11 +25,17 @@
 package process;
 
 /**
+ * State the <code>Elevator<code> owns
  *
  * @author micmeist
  */
 public interface ElevatorState {
 
+    /**
+     * Handle the call of an <code>Passenger<code> on a <code>Floor<code>
+     *
+     * @param floor the floor on which an passenger has called the elevator 
+     */
     void handleCall(Floor floor);
     
 }

@@ -30,12 +30,30 @@ package process;
  */
 public interface Building {
 
+    /**
+     *
+     * @return
+     */
     Elevator getElevator();
 
+    /**
+     *
+     * @param index
+     * @return
+     */
     Floor getFloor(int index);
 
+    /**
+     *
+     * @param floor
+     * @return
+     */
     Floor getRandomFloor(AbstractFloor floor);
 
+    /**
+     *
+     * @return
+     */
     Floor getRandomFloorWithPassengers();
     
 }

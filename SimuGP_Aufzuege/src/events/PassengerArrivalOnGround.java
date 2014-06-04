@@ -35,6 +35,11 @@ import process.PassengerImpl;
  */
 public class PassengerArrivalOnGround extends PassengerArrival{
 
+    /**
+     *
+     * @param startFloor floor on which the passenger arrives
+     * @param destinationFloor floor to which the passenger wants to get
+     */
     public PassengerArrivalOnGround(Floor startFloor, Floor destinationFloor) {
         super(new PassengerImpl(startFloor, destinationFloor), RandomGenerator.getInstance().getExponential(GlobalVariables.PASSENGER_ARRIVAL_EVENT_TIME_MEAN));
     }

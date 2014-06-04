@@ -31,10 +31,19 @@ import process.Passenger;
  */
 public abstract class PassengerArrival extends PassengerEvent {
 
-    public PassengerArrival(Passenger passenger, double eventTime) {
-        super(passenger, eventTime);
+    /**
+     *
+     * @param passenger process of this event
+     * @param timeUntilEventOccures the time in seconds between the current simulatuion time
+     * (when the event is planed) and the simulation time when the event occures.
+     */
+    public PassengerArrival(Passenger passenger, double timeUntilEventOccures) {
+        super(passenger, timeUntilEventOccures);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void execute() {
         getPassenger().setWaitingStartTime(getEventTime());

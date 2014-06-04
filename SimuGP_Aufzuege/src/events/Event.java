@@ -34,17 +34,34 @@ public abstract class Event {
     
     private double eventTime;
 
-    public Event(double eventTime) {
-        this.eventTime = eventTime + GlobalVariables.simulationTime;
+    /**
+     *
+     * @param timeUntilEventOccures the time in seconds between the current simulatuion time
+     * (when the event is planed) and the simulation time when the event occures.
+     */
+    public Event(double timeUntilEventOccures) {
+        this.eventTime = timeUntilEventOccures + GlobalVariables.simulationTime;
     }
 
+    /**
+     *
+     * @return simulation time in seconds when the event occures
+     */
     public double getEventTime() {
         return eventTime;
     }
 
+    /**
+     *
+     * @param eventTime the simulation time in seconds the event occures
+     */
     public void setEventTime(double eventTime) {
         this.eventTime = eventTime;
     }
     
+    /**
+     * Excecutes the specific event handler of the process of the event
+     *
+     */
     public abstract void execute();
 }
