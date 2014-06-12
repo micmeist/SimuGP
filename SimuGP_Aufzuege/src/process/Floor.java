@@ -24,6 +24,7 @@
 package process;
 
 /**
+ * This interface represents the floor process in the simulation.
  *
  * @author micmeist
  */

@@ -25,6 +25,7 @@
 package process;
 
 /**
+ * This interface represents the passenger process in the simulation.
  *
  * @author micmeist
  */
@@ -43,12 +44,15 @@ public interface Passenger {
     Floor getSTART_FLOOR();
 
     /**
+     * Returns the simulation time of the arrvial of this pessenger. This is the
+     * same moment when the passenger starts waiting for an elevator.
      *
-     * @return
+     * @return simulation time when the passengers starts waiting for an elevator
      */
     double getWaitingStartTime();
 
     /**
+     * Handler for the <code>PassengerArrival</code> event
      *
      * @param floor
      * @param elevator
@@ -58,12 +62,14 @@ public interface Passenger {
     //Handler
 
     /**
+     * Handler for the <code>ElevatorArrival</code> event
      *
      * @param elevator
      */
-        void handleElevatorArrival(Elevator elevator);
+    void handleElevatorArrival(Elevator elevator);
 
     /**
+     * Set the simulation time when the passenger starts waiting for an elevator.
      *
      * @param waitingStartTime
      */

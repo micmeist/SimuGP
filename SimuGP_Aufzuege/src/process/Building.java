@@ -25,6 +25,8 @@
 package process;
 
 /**
+ * This interface represents the building containing the floors and the elevator
+ * for this simulation.
  *
  * @author micmeist
  */
@@ -32,28 +34,23 @@ public interface Building {
 
     /**
      *
-     * @return
+     * @return the elevator of this building
      */
     Elevator getElevator();
 
     /**
      *
-     * @param index
-     * @return
+     * @param floorNumber
+     * @return the floor with the number matching the parameter
      */
-    Floor getFloor(int index);
+    Floor getFloor(int floorNumber);
 
     /**
+     * Returns a random floor of this building, which is not the given one.
      *
-     * @param floor
-     * @return
+     * @param floor the floor wich schould not returned 
+     * @return an random choosen floor but another than the given one
      */
     Floor getRandomFloor(AbstractFloor floor);
-
-    /**
-     *
-     * @return
-     */
-    Floor getRandomFloorWithPassengers();
     
 }

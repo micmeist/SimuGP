@@ -38,9 +38,10 @@ public class BuildingImpl implements Building {
     private final List<Floor> floors;
 
     /**
+     * Creates a new building
      *
-     * @param numberOfFloors
-     * @param elevatorStartFloor
+     * @param numberOfFloors number of floors, the building schould have
+     * @param elevatorStartFloor the floor on wich the elevator is waiting at the begining of the simulation
      */
     public BuildingImpl(int numberOfFloors, int elevatorStartFloor) {
         floors = new ArrayList();
@@ -68,12 +69,12 @@ public class BuildingImpl implements Building {
 
     /**
      *
-     * @param index
+     * @param floorNumber
      * @return
      */
     @Override
-    public Floor getFloor(int index) {
-        return floors.get(index);
+    public Floor getFloor(int floorNumber) {
+        return floors.get(floorNumber);
     }
 
     /**
@@ -87,24 +88,6 @@ public class BuildingImpl implements Building {
         do {
             result = floors.get(RandomGenerator.getInstance().getInt(0, floors.size() - 1));
         } while (floor.equals(result));
-        return result;
-    }
-
-    /**
-     *
-     * @return
-     */
-    @Override
-    public Floor getRandomFloorWithPassengers() {
-        List<Floor> floorsWithPassengersOn = getFloorsWithPassengersOn();
-        Floor result;
-
-        if (floorsWithPassengersOn.size() <= 1) {
-            result = floors.get(0);
-        } else {
-            result = floorsWithPassengersOn.get(RandomGenerator.getInstance().getInt(0, floorsWithPassengersOn.size() - 1));
-        }
-
         return result;
     }
 
