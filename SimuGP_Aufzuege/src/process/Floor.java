@@ -49,7 +49,8 @@ public interface Floor {
     int getFloorNumber();
 
     /**
-     * Handler for the <code>ElevatorArrival</code> event.
+     * Handler called by <code>Elevator</code> to activate the floor process when the elevator
+     * arrived at this floor.
      */
     void handleElevatorArrival();
 
