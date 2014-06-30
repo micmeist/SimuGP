@@ -52,7 +52,8 @@ public interface Passenger {
     double getWaitingStartTime();
 
     /**
-     * Handler for the <code>PassengerArrival</code> event
+     * Handler called by <code>Elevator</code> to activate the passenger process when the elevator
+     * arrived at the destination.
      *
      * @param floor
      * @param elevator
@@ -62,7 +63,9 @@ public interface Passenger {
     //Handler
 
     /**
-     * Handler for the <code>ElevatorArrival</code> event
+     * Handler called by <code>Floor</code> to activate the passenger process when
+     * an elevator arrived at the floor on which the passenger is waiting for the
+     * elevator.
      *
      * @param elevator
      */
