@@ -70,6 +70,20 @@ public interface Passenger {
      * @param elevator
      */
     void handleElevatorArrival(Elevator elevator);
+    
+    /**
+     * Handler for the <code>PassengerEntered</code> event
+     *
+     * @param elevator elevator to enter
+     */
+    void handlePassengerEntered(Elevator elevator);
+
+    /**
+     * Handler for the <code>PassengerLeaved</code> event
+     *
+     * @param elevator elevator to leave
+     */
+    void handlePassengerLeaved(Elevator elevator);
 
     /**
      * Set the simulation time when the passenger starts waiting for an elevator.

@@ -90,14 +90,16 @@ public interface Elevator {
     void handleCall(Floor floor);
 
     /**
-     * Handler for the <code>PassengerEntered</code> event
+     * Handler called by <code>Passenger</code> when <code>PassengerEntered</code> 
+     * eventuate
      *
      * @param passenger passenger who entered the elevator
      */
     void handlePassengerEntered(Passenger passenger);
 
     /**
-     * Handler for the <code>PassengerLeaved</code> event
+     * Handler called by <code>Passenger</code> when <code>PassengerLeaved</code> 
+     * eventuate
      *
      * @param passenger passenger who leaved the elevator
      */

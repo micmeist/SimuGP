@@ -48,7 +48,8 @@ public class PassengerLeaved extends PassengerMoving {
      */
     @Override
     public void execute() {
-        elevator.handlePassengerLeaved(getPassenger());
+        passenger.getDESTINATION_FLOOR().addPassengerOnFloor();
+        passenger.handlePassengerLeaved(elevator);
     }
 
 }

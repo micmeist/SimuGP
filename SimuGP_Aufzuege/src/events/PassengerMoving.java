@@ -31,7 +31,7 @@ import process.Passenger;
  *
  * @author micmeist
  */
-public class PassengerMoving extends PassengerEvent{
+public abstract class PassengerMoving extends PassengerEvent{
 
     /**
      * The elevator the passenger will enter or leave
@@ -48,14 +48,5 @@ public class PassengerMoving extends PassengerEvent{
     public PassengerMoving(Passenger passenger, double timeUntilEventOccures, Elevator elevator) {
         super(passenger, timeUntilEventOccures);
         this.elevator = elevator;
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void execute() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+    } 
 }

@@ -178,7 +178,6 @@ public class ElevatorImpl implements Elevator  {
     @Override
     public void handlePassengerLeaved(Passenger passenger) {
         passengers.remove(passenger);
-        passenger.getDESTINATION_FLOOR().addPassengerOnFloor();
         logger.log(Level.FINE, "Passenger leaved elevator. {0} passenger(s) in elevator now", passengers.size());
         numberOfPassengersTransported++;
         notifyArrivalPassenger();
@@ -190,10 +189,9 @@ public class ElevatorImpl implements Elevator  {
      */
     @Override
     public void handlePassengerEntered(Passenger passenger) {
-        passenger.getSTART_FLOOR().removePassengerFromQueue(passenger);
         passengers.add(passenger);
         logger.log(Level.FINE, "Passenger entered elevator. {0} passenger(s) in elevator now", passengers.size());
-        //More passengers should come when capacity is not reached
+        //More passengers should enter when capacity is not reached
         if (passengers.size() < CAPACITY ) {
             notifyArrivalFloor();
         } else {

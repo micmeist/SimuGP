@@ -50,7 +50,8 @@ public class PassengerEntered extends PassengerMoving {
     @Override
     public void execute() {
         Statistics.passengerWaitingTime(getPassenger().getWaitingStartTime(), getEventTime());
-        elevator.handlePassengerEntered(getPassenger());
+        passenger.getSTART_FLOOR().removePassengerFromQueue(passenger);
+        passenger.handlePassengerEntered(elevator);
     }
 
 }

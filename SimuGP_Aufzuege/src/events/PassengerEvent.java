@@ -32,7 +32,7 @@ import process.Passenger;
  */
 public abstract class PassengerEvent extends Event{
     
-    private final Passenger passenger;
+    protected final Passenger passenger;
 
     /**
      *

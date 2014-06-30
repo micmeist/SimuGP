@@ -108,6 +108,16 @@ public class PassengerImpl implements Passenger{
         }
     }
     
+    @Override
+    public void handlePassengerEntered(Elevator elevator) {
+        elevator.handlePassengerEntered(this);
+    }
+
+    @Override
+    public void handlePassengerLeaved(Elevator elevator) {
+        elevator.handlePassengerLeaved(this);
+    }
+    
     //Planer
     private void planEnteredElevatorEvent(Elevator elevator) {
         elevator.setState(new StateWaiting(elevator));
