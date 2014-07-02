@@ -75,13 +75,7 @@ public interface Floor {
      * @return true if the current instance is an instance of <code>GroundFloor</code>
      */
     boolean isGroundFloor();
-
-    /**
-     * Reducing the counter for passengers on the floor. This is not removing an
-     * instance of <code>Passenger</code>.
-     */
-    void reducePassengersOnFloor();
-
+    
     /**
      * Remove an instance of <code>Passenger</code> from the queue of pessengers
      * waiting for an elevator

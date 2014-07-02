@@ -83,23 +83,6 @@ public abstract class AbstractFloor implements Floor {
         passangersInQueue.remove(passenger);
     }
 
-    //Handler
-    /**
-     * {@inheritDoc}
-     * This method adds the arriving passengers to the queue of passengers 
-     * waiting for an elevator, reducing the counter of passengers on floor, calls
-     * the elevator and plan the next <code>PassengerArrival</code> event.
-     * 
-     * @param passenger the passenger who arrives at the floor
-     */
-    @Override
-    public void handlePassengerArrival(Passenger passenger) {
-        passangersInQueue.add(passenger);
-        reducePassengersOnFloor();
-        planPassengerArrival();
-        callElevator();
-    }
-
     /**
      *{@inheritDoc}
      * This method notifies the passengers waiting for an elevator, that an elevator
@@ -120,7 +103,7 @@ public abstract class AbstractFloor implements Floor {
         }
     }
 
-    private void callElevator() {
+    protected void callElevator() {
         building.getElevator().handleCall(this);
     }
 

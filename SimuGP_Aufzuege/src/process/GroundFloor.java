@@ -67,13 +67,20 @@ public class GroundFloor extends AbstractFloor {
     public void addPassengerOnFloor() {
         //Do nothing
     }
-
+    
     /**
      * {@inheritDoc}
+     * This method adds the arriving passengers to the queue of passengers 
+     * waiting for an elevator, reducing the counter of passengers on floor, calls
+     * the elevator and plan the next <code>PassengerArrival</code> event.
+     * 
+     * @param passenger the passenger who arrives at the floor
      */
     @Override
-    public void reducePassengersOnFloor() {
-        //Do nothing
+    public void handlePassengerArrival(Passenger passenger) {
+        passangersInQueue.add(passenger);
+        planPassengerArrival();
+        callElevator();
     }
 
     /**

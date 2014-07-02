@@ -77,18 +77,22 @@ public class TopFloor extends AbstractFloor {
     @Override
     public void addPassengerOnFloor() {
         passangersOnFloor++;
-        if(passangersOnFloor == 1){
-            planPassengerArrival();
-        }
-        
+        planPassengerArrival();        
     }
-
+    
     /**
      * {@inheritDoc}
+     * This method adds the arriving passengers to the queue of passengers 
+     * waiting for an elevator, reducing the counter of passengers on floor, calls
+     * the elevator and plan the next <code>PassengerArrival</code> event.
+     * 
+     * @param passenger the passenger who arrives at the floor
      */
     @Override
-    public void reducePassengersOnFloor() {
+    public void handlePassengerArrival(Passenger passenger) {
+        passangersInQueue.add(passenger);
         passangersOnFloor--;
+        callElevator();
     }
 
     /**
@@ -99,7 +103,7 @@ public class TopFloor extends AbstractFloor {
     @Override
     protected void planPassengerArrival() {
         if (hasPassengersOn()) {
-            FutureEventList.getInstance().addPassengerEvent(new PassengerArrivalOnFloor(this, building.getRandomFloor(this)));
+            FutureEventList.getInstance().addPassengerEvent(new PassengerArrivalOnFloor(this, building.getFloor(0)));
         }
     }
 }

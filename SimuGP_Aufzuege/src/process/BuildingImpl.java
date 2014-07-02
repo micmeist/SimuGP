@@ -46,7 +46,7 @@ public class BuildingImpl implements Building {
     public BuildingImpl(int numberOfFloors, int elevatorStartFloor) {
         floors = new ArrayList();
         createFloors(numberOfFloors);
-        elevator = new ElevatorImpl(GlobalVariables.ELEVATOR_CAPACITY, GlobalVariables.ELEVATOR_SPEED, floors.get(elevatorStartFloor), 4);
+        elevator = new ElevatorImpl(GlobalVariables.ELEVATOR_CAPACITY, GlobalVariables.ELEVATOR_SPEED, floors.get(elevatorStartFloor), GlobalVariables.TIME_TO_MOVE_DOOR);
     }
 
     private void createFloors(int numberOfFloors) {

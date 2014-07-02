@@ -29,45 +29,54 @@ package controller;
  */
 public class GlobalVariables {
 
-
     /**
      * Hight of a single Floor in meters
      */
-        public static final double FLOOR_HIGHT = 150;
+    public static final double FLOOR_HIGHT = 150;
 
     /**
      * Number of persons fit in the elevator
      */
-        public static final int ELEVATOR_CAPACITY = 10;
+    public static final int ELEVATOR_CAPACITY = 10;
+
+    /**
+     * Time the elevator needs to close or open the door in seconds
+     */
+    public static final double TIME_TO_MOVE_DOOR = 4;
 
     /**
      * Elevator speed in m/s
      */
-        public static final double ELEVATOR_SPEED = 5;
+    public static final double ELEVATOR_SPEED = 3;
 
     /**
      * Mean of passenger arrival time in seconds
      */
-        public static final double PASSENGER_ARRIVAL_EVENT_TIME_MEAN = 20;
+    public static final double PASSENGER_ARRIVAL_EVENT_TIME_MEAN = 30;
 
     /**
      * Mean of time passengers need to enter or leave elevator in seconds
      */
-        public static final double PASSENGER_ENTER_AND_LEAVE_EVENT_TIME_MEAN = 2;
+    public static final double PASSENGER_ENTER_AND_LEAVE_EVENT_TIME_MEAN = 2;
 
     /**
      * Minimum time passengers spending on floor in seconds
      */
-        public static final int TIME_PASSENGER_SPEND_ON_FLOOR_LOWER = 10;
+        public static final int TIME_PASSENGER_SPEND_ON_FLOOR_MEAN = 600;
 
     /**
      * Maximum PLANED time passengers spending on floor in seconds
      */
-        public static final int TIME_PASSENGER_SPEND_ON_FLOOR_UPPER = 30;
+        public static final int TIME_PASSENGER_SPEND_ON_FLOOR_DEVIATION = 300;
+    
+    /**
+     * simulation end time in seconds
+     */
+    public static final double MAX_SIMULATION_TIME = 28800;
 
     /**
      * Simulation time in seconds
      */
-        public static double simulationTime = 0;
+    public static double simulationTime = 0;
 
 }

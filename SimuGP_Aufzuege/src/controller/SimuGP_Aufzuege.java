@@ -20,8 +20,7 @@ import process.TopFloor;
 public class SimuGP_Aufzuege {
 
     private static final Logger LOGGER = Logger.getLogger(SimuGP_Aufzuege.class.getName());
-    //End time of simulation in seconds
-    private static final double maxSimulationTime = 86400;
+
     private static Building building;
 
     /**
@@ -33,7 +32,7 @@ public class SimuGP_Aufzuege {
         building = new BuildingImpl(2, 0);
         FutureEventList.getInstance().addPassengerEvent(new PassengerArrivalOnGround(building.getFloor(0), building.getFloor(1)));
 
-        while (GlobalVariables.simulationTime < maxSimulationTime) {
+        while (GlobalVariables.simulationTime < GlobalVariables.MAX_SIMULATION_TIME) {
             try {
                 Event event = FutureEventList.getInstance().pollNextEvent();
                 GlobalVariables.simulationTime = event.getEventTime();
@@ -57,7 +56,7 @@ public class SimuGP_Aufzuege {
                 + "Number of passengers on floor 1: {3} \n"
                 + "Number of passengers in queue on floor 1: {4} \n"
                 + "Number of passengers in elevator: {5} \n"
-                + "Longest time passenger waiting on elevator: {6}s",
+                + "Longest time passenger waiting for an elevator: {6}s",
                 new Object[]{
                     building.getElevator().getNumberOfPassengersTransported(),
                     building.getElevator().getNumberOfSituationsCapacityReached(),

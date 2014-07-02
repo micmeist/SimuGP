@@ -40,6 +40,6 @@ public class PassengerArrivalOnFloor extends PassengerArrival {
      * @param destinationFloor floor to which the passenger wants to get
      */
     public PassengerArrivalOnFloor(Floor startFloor, Floor destinationFloor) {
-        super(new PassengerImpl(startFloor, destinationFloor), RandomGenerator.getInstance().getInt(GlobalVariables.TIME_PASSENGER_SPEND_ON_FLOOR_LOWER, GlobalVariables.TIME_PASSENGER_SPEND_ON_FLOOR_UPPER));
+        super(new PassengerImpl(startFloor, destinationFloor), RandomGenerator.getInstance().getGaussian(GlobalVariables.TIME_PASSENGER_SPEND_ON_FLOOR_MEAN, GlobalVariables.TIME_PASSENGER_SPEND_ON_FLOOR_DEVIATION));
     }
 }

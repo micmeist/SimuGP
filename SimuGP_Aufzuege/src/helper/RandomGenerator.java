@@ -74,5 +74,17 @@ public class RandomGenerator {
     public int getInt(int lower, int upper) {
         return randomDataGenerator.nextInt(lower, upper);
     }
-
+    
+    /**
+     * Generates a uniformly distributed random integer between lower and upper 
+     * (endpoints included) using org.apache.commons.math3.random.RandomDataGenerator.
+     * 
+     * @param mean - the mean of the distribution
+     * @param deviation - the standard deviation of the distribution
+     * @return a random integer following the specified Gaussian distribution
+     */
+    public int getGaussian(double mean, double deviation) {
+        Double randomDouble = randomDataGenerator.nextGaussian(mean,deviation);
+        return randomDouble.intValue();
+    }
 }
